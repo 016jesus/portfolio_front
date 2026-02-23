@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { OAuthCallback } from '../features/auth/components/OAuthCallback';
 import { useAuthStore } from '../store/useAuthStore';
 import { MainLayout } from '../layouts/MainLayout';
+import { PublicProfile } from '../pages/PublicProfile';
 
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -74,6 +75,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+      },
+      {
+        path: 'p/:slug',
+        element: <PublicProfile />,
       },
       {
         path: 'login',

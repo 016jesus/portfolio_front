@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuthStore } from '../../../store/useAuthStore';
-import apiClient from '../../../lib/apiClient';
+import { oauthLogin } from '../services/authService';
+import Cookies from 'js-cookie';
 
 export const OAuthCallback = () => {
   const [searchParams] = useSearchParams();
@@ -19,17 +20,23 @@ export const OAuthCallback = () => {
       hasFetched.current = true;
       
       // Llamada a tu API .NET para intercambiar el code por el JWT
-      apiClient.post(`/api/Auth/oauth-login`, { provider, code })
+      oauthLogin({ provider, code })
         .then((response) => {
-          // Según tu Swagger, la respuesta exitosa devuelve { token, expiresAt }
-          const { token } = response.data;
+          const { token } = response;
+          
+          // Guardar el token en una cookie (si el backend no lo hace con HttpOnly)
+          Cookies.set('jwt_token', token, { expires: 7, secure: true, sameSite: 'strict' });
+          
+          // Actualizar el estado global
           setToken(token);
+          
+          console.log('✅ Autenticación exitosa:', response);
           
           // Redirigir al dashboard protegido
           navigate('/admin/dashboard', { replace: true });
         })
         .catch((error) => {
-          console.error('Error en autenticación OAuth:', error);
+          console.error('❌ Error en autenticación OAuth:', error);
           navigate('/login?error=auth_failed', { replace: true });
         });
     } else if (!code) {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useAuthStore } from '../store/useAuthStore';
 
 const apiClient = axios.create({
@@ -6,12 +7,14 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // Importante para enviar cookies HttpOnly si el backend las maneja
 });
 
-// Interceptor de Petición: Inyectar el Token
+// Interceptor de Petición: Inyectar el Token desde la cookie
 apiClient.interceptors.request.use(
   (config) => {
-    const token = useAuthStore.getState().token;
+    // Si el backend no usa HttpOnly y tú manejas la cookie en el frontend:
+    const token = Cookies.get('jwt_token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -26,6 +29,7 @@ apiClient.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       // Limpiar estado y redirigir al login
+      Cookies.remove('jwt_token');
       useAuthStore.getState().logout();
       window.location.href = '/login'; 
     }
