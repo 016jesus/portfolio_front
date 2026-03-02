@@ -1,0 +1,54 @@
+{
+  "translation": {
+    "home": {
+      "hero": {
+        "title": "Your professional career deserves something better than a PDF",
+        "description": "Design a high-impact portfolio in minutes. No code, optimized for recruiters, and ready to secure your next interview",
+        "cta": "Start for free now"
+      },
+      "productivity": {
+        "title": "Productivity",
+        "description": "Accelerate innovation with AI and automation."
+      },
+      "security": {
+        "title": "Security",
+        "description": "Secure your code across the entire lifecycle."
+      }
+    },
+    "nav": {
+      "home": "Home",
+      "login": "Sign in",
+      "signup": "Sign up",
+      "dashboard": "Dashboard",
+      "logout": "Sign out"
+    },
+    "footer": {
+      "rights": "All rights reserved."
+    },
+    "login": {
+      "title": "Sign in to GitHub",
+      "signInWithGithub": "Sign in with GitHub"
+    },
+    "loginDrawer": {
+      "title": "Sign in",
+      "subtitle": "Choose how you want to continue",
+      "continueWithGoogle": "Continue with Google",
+      "continueWithGitHub": "Continue with GitHub",
+      "continueWithEmail": "Continue with email",
+      "or": "OR",
+      "email": "Email",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "recentActivity": "Recent Activity",
+      "noActivity": "No recent activity to show.",
+      "repositories": "Repositories",
+      "noRepositories": "You don't have any repositories yet."
+    }
+  }
+}

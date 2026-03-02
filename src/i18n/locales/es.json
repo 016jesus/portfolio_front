@@ -1,0 +1,54 @@
+{
+  "translation": {
+    "home": {
+      "hero": {
+        "title": "Tu carrera profesional merece algo mejor que un PDF",
+        "description": "Diseña un portafolio de alto impacto en minutos. Sin código, optimizado para reclutadores y listo para asegurar tu próxima entrevista",
+        "cta": "Empieza gratis ahora"
+      },
+      "productivity": {
+        "title": "Productividad",
+        "description": "Acelera la innovación con IA y automatización."
+      },
+      "security": {
+        "title": "Seguridad",
+        "description": "Asegura tu código en todo el ciclo de vida."
+      }
+    },
+    "nav": {
+      "home": "Inicio",
+      "login": "Iniciar sesión",
+      "signup": "Registrarse",
+      "dashboard": "Panel",
+      "logout": "Cerrar sesión"
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados."
+    },
+    "login": {
+      "title": "Inicia sesión",
+      "signInWithGithub": "Iniciar sesión con GitHub"
+    },
+    "loginDrawer": {
+      "title": "Iniciar sesión",
+      "subtitle": "Elige cómo quieres continuar",
+      "continueWithGoogle": "Continuar con Google",
+      "continueWithGitHub": "Continuar con GitHub",
+      "continueWithEmail": "Continuar con correo",
+      "or": "O",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "noAccount": "¿No tienes cuenta?",
+      "signUp": "Regístrate"
+    },
+    "dashboard": {
+      "title": "Panel de Control",
+      "recentActivity": "Actividad Reciente",
+      "noActivity": "No hay actividad reciente para mostrar.",
+      "repositories": "Repositorios",
+      "noRepositories": "Aún no tienes ningún repositorio."
+    }
+  }
+}
