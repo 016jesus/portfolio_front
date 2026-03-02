@@ -2,17 +2,37 @@
   "translation": {
     "home": {
       "hero": {
+        "badge": "New · AI-powered portfolios",
         "title": "Your professional career deserves something better than a PDF",
-        "description": "Design a high-impact portfolio in minutes. No code, optimized for recruiters, and ready to secure your next interview",
-        "cta": "Start for free now"
+        "description": "Design a high-impact portfolio in minutes. No code, optimized for recruiters, and ready to secure your next interview.",
+        "cta": "Start for free now",
+        "secondaryCta": "See features"
       },
-      "productivity": {
-        "title": "Productivity",
-        "description": "Accelerate innovation with AI and automation."
+      "stats": {
+        "users": "Active users",
+        "portfolios": "Portfolios created",
+        "interviews": "Interview rate"
       },
-      "security": {
-        "title": "Security",
-        "description": "Secure your code across the entire lifecycle."
+      "features": {
+        "title": "Everything you need",
+        "subtitle": "Tools designed to make your profile stand out from the very first second.",
+        "speed": {
+          "title": "Ready in minutes",
+          "description": "Build your full portfolio in under 5 minutes with our guided setup. No technical knowledge required."
+        },
+        "design": {
+          "title": "Professional design",
+          "description": "Modern, customizable templates that impress recruiters at first glance."
+        },
+        "share": {
+          "title": "Share instantly",
+          "description": "Your portfolio lives at a unique URL. Share it on LinkedIn, email, or anywhere with a single link."
+        }
+      },
+      "cta": {
+        "title": "Start today, it's free",
+        "description": "Join thousands of professionals who already landed their next opportunity with a standout portfolio.",
+        "button": "Create my portfolio"
       }
     },
     "nav": {
@@ -28,6 +48,11 @@
     "login": {
       "title": "Sign in to GitHub",
       "signInWithGithub": "Sign in with GitHub"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Sign up to get started with your portfolio",
+      "signUpWithGithub": "Sign up with GitHub"
     },
     "loginDrawer": {
       "title": "Sign in",
@@ -49,6 +74,11 @@
       "noActivity": "No recent activity to show.",
       "repositories": "Repositories",
       "noRepositories": "You don't have any repositories yet."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "description": "We couldn't load this page. Please try again later.",
+      "backHome": "Back to home"
     }
   }
 }

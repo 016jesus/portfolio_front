@@ -2,17 +2,37 @@
   "translation": {
     "home": {
       "hero": {
+        "badge": "Nuevo · Portafolios con IA",
         "title": "Tu carrera profesional merece algo mejor que un PDF",
-        "description": "Diseña un portafolio de alto impacto en minutos. Sin código, optimizado para reclutadores y listo para asegurar tu próxima entrevista",
-        "cta": "Empieza gratis ahora"
+        "description": "Diseña un portafolio de alto impacto en minutos. Sin código, optimizado para reclutadores y listo para asegurar tu próxima entrevista.",
+        "cta": "Empieza gratis ahora",
+        "secondaryCta": "Ver funciones"
       },
-      "productivity": {
-        "title": "Productividad",
-        "description": "Acelera la innovación con IA y automatización."
+      "stats": {
+        "users": "Usuarios activos",
+        "portfolios": "Portafolios creados",
+        "interviews": "Tasa de entrevistas"
       },
-      "security": {
-        "title": "Seguridad",
-        "description": "Asegura tu código en todo el ciclo de vida."
+      "features": {
+        "title": "Todo lo que necesitas",
+        "subtitle": "Herramientas diseñadas para que tu perfil destaque desde el primer segundo.",
+        "speed": {
+          "title": "Listo en minutos",
+          "description": "Crea tu portafolio completo en menos de 5 minutos con nuestro asistente guiado. Sin conocimientos técnicos."
+        },
+        "design": {
+          "title": "Diseño profesional",
+          "description": "Plantillas modernas y personalizables que impresionan a reclutadores desde la primera vista."
+        },
+        "share": {
+          "title": "Comparte al instante",
+          "description": "Tu portafolio vive en una URL única. Compártelo en LinkedIn, correo o cualquier lugar con un solo enlace."
+        }
+      },
+      "cta": {
+        "title": "Empieza hoy, es gratis",
+        "description": "Únete a miles de profesionales que ya consiguieron su próxima oportunidad con un portafolio que destaca.",
+        "button": "Crear mi portafolio"
       }
     },
     "nav": {
@@ -28,6 +48,11 @@
     "login": {
       "title": "Inicia sesión",
       "signInWithGithub": "Iniciar sesión con GitHub"
+    },
+    "signup": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Regístrate para comenzar con tu portafolio",
+      "signUpWithGithub": "Registrarse con GitHub"
     },
     "loginDrawer": {
       "title": "Iniciar sesión",
@@ -49,6 +74,11 @@
       "noActivity": "No hay actividad reciente para mostrar.",
       "repositories": "Repositorios",
       "noRepositories": "Aún no tienes ningún repositorio."
+    },
+    "error": {
+      "title": "Ha ocurrido un error",
+      "description": "No se pudo cargar la página. Inténtalo de nuevo más tarde.",
+      "backHome": "Volver al inicio"
     }
   }
 }

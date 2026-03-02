@@ -1,5 +1,6 @@
 import { X, Mail } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 interface LoginDrawerProps {
   isOpen: boolean;
@@ -116,9 +117,13 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
               {/* Footer */}
               <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                 {t('loginDrawer.noAccount')}{' '}
-                <button className="text-blue-600 dark:text-blue-400 hover:underline font-semibold">
+                <Link
+                  to="/signup"
+                  onClick={onClose}
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                >
                   {t('loginDrawer.signUp')}
-                </button>
+                </Link>
               </div>
             </div>
           </div>
