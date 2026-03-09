@@ -22,6 +22,7 @@ export interface CreateProjectDto {
 
 export interface User {
   id: string;
+  tenantId: string;
   username: string;
   email: string;
   displayName?: string;

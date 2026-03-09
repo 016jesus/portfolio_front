@@ -4,8 +4,8 @@ import type { Project, CreateProjectDto } from '../../../core/models';
 /**
  * Obtener todos los proyectos de un usuario por su username
  */
-export const getProjectsByUsername = async (username: string): Promise<Project[]> => {
-  const response = await apiClient.get<Project[]>(`/api/Projects?username=${username}`);
+export const getProjectsByUsername = async (username: string, tenantID: string): Promise<Project[]> => {
+  const response = await apiClient.get<Project[]>(`/api/Projects?username=${username}&tenantID=${tenantID}`);
   return response.data;
 };
 

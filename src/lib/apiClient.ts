@@ -7,7 +7,7 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, // Importante para enviar cookies HttpOnly si el backend las maneja
+  withCredentials: true, 
 });
 
 // Interceptor de Petición: Inyectar el Token desde la cookie

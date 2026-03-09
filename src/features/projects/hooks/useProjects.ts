@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getProjectsByUsername } from '../services/projectService';
 import type { Project } from '../../../core/models';
+import { getPublicProfile } from '../../../hooks/useProfile';
 
 /**
  * Custom Hook para obtener proyectos de un usuario
@@ -16,11 +17,15 @@ export const useProjects = (username: string) => {
       return;
     }
 
+
+
     const fetchProjects = async () => {
       try {
         setLoading(true);
-        const data = await getProjectsByUsername(username);
-        console.log('✅ Proyectos obtenidos:', data);
+        const user = await getPublicProfile(username);
+        console.log('Perfil del usuario para proyectos:', user);
+        const data = await getProjectsByUsername(username, user.tenantId);
+        console.log('Proyectos obtenidos:', data);
         setProjects(data);
         setError(null);
       } catch (err) {
@@ -36,3 +41,7 @@ export const useProjects = (username: string) => {
 
   return { projects, loading, error };
 };
+function setUser(data: any) {
+  throw new Error('Function not implemented.');
+}
+

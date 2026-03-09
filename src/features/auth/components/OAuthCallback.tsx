@@ -30,13 +30,13 @@ export const OAuthCallback = () => {
           // Actualizar el estado global
           setToken(token);
           
-          console.log('✅ Autenticación exitosa:', response);
+          console.log('Autenticación exitosa:', response);
           
           // Redirigir al dashboard protegido
           navigate('/admin/dashboard', { replace: true });
         })
         .catch((error) => {
-          console.error('❌ Error en autenticación OAuth:', error);
+          console.error('Error en autenticación OAuth:', error);
           navigate('/login?error=auth_failed', { replace: true });
         });
     } else if (!code) {
