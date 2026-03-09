@@ -28,7 +28,7 @@ export const useProfile = (username?: string) => {
           // como GET /api/Users/{username} si lo tienes en tu API
           console.log(`Obtener perfil público de: ${username}`);
           const data = await getPublicProfile(username);
-          // setProfile(data);
+          setProfile(data);
         }
         
         setError(null);

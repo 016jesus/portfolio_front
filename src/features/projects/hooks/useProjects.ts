@@ -41,7 +41,4 @@ export const useProjects = (username: string) => {
 
   return { projects, loading, error };
 };
-function setUser(data: any) {
-  throw new Error('Function not implemented.');
-}
 
