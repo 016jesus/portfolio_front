@@ -5,8 +5,16 @@ import type { Project, CreateProjectDto } from '../../../core/models';
  * Obtener todos los proyectos de un usuario por su username
  */
 export const getProjectsByUsername = async (username: string, tenantID: string): Promise<Project[]> => {
-  const response = await apiClient.get<Project[]>(`/api/Projects?username=${username}&tenantID=${tenantID}`);
-  return response.data;
+  try {
+    const response = await apiClient.get<Project[]>(`/api/Projects?username=${username}&tenantID=${tenantID}`);
+    return response.data || [];
+  } catch (error: any) {
+    // Si es un 404, retornar array vacío en lugar de error (el usuario existe pero no tiene proyectos)
+    if (error.response?.status === 404) {
+      return [];
+    }
+    throw error;
+  }
 };
 
 /**

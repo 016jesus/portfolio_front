@@ -2,78 +2,227 @@
   "translation": {
     "home": {
       "hero": {
-        "badge": "New · AI-powered portfolios",
-        "title": "Your professional career deserves something better than a PDF",
-        "description": "Design a high-impact portfolio in minutes. No code, optimized for recruiters, and ready to secure your next interview.",
-        "cta": "Start for free now",
-        "secondaryCta": "See features"
-      },
-      "stats": {
-        "users": "Active users",
-        "portfolios": "Portfolios created",
-        "interviews": "Interview rate"
+        "badge": "Your portfolio, your identity",
+        "titleLine1": "Show the world",
+        "titleLine2": "who you are",
+        "description": "Build your professional portfolio in minutes, connect your GitHub repos and share a URL that truly represents you.",
+        "cta": "Create my portfolio free",
+        "secondaryCta": "See how it works"
       },
       "features": {
+        "eyebrow": "Features",
         "title": "Everything you need",
-        "subtitle": "Tools designed to make your profile stand out from the very first second.",
-        "speed": {
-          "title": "Ready in minutes",
-          "description": "Build your full portfolio in under 5 minutes with our guided setup. No technical knowledge required."
-        },
-        "design": {
-          "title": "Professional design",
-          "description": "Modern, customizable templates that impress recruiters at first glance."
-        },
-        "share": {
-          "title": "Share instantly",
-          "description": "Your portfolio lives at a unique URL. Share it on LinkedIn, email, or anywhere with a single link."
-        }
+        "subtitle": "Built for developers and professionals who want to stand out.",
+        "github": { "title": "Connect with GitHub", "description": "Import your repositories directly and link them to your portfolio projects in one click." },
+        "url": { "title": "Custom URL", "description": "Your portfolio lives at portf.io/your-username — a clean address you can share anywhere." },
+        "projects": { "title": "Project management", "description": "Organize and showcase your projects with title, description, image, technologies and link." },
+        "security": { "title": "Secure access", "description": "Login with GitHub, Google or email. OAuth 2.0, JWT and encrypted data to keep your account safe." },
+        "skills": { "title": "Technical skills", "description": "Declare your technologies and competencies. Let your profile speak for you before the interview." },
+        "share": { "title": "Share in seconds", "description": "One link, all the details. Share on LinkedIn, CV or directly with recruiters." }
+      },
+      "howItWorks": {
+        "eyebrow": "Process",
+        "title": "Ready in three steps",
+        "step1": { "title": "Create your account", "description": "Sign up with GitHub, Google or your email. No long forms." },
+        "step2": { "title": "Build your profile", "description": "Add projects, skills, bio and link your GitHub repos." },
+        "step3": { "title": "Share your portfolio", "description": "Get your public URL and use it on your CV, LinkedIn or anywhere." }
+      },
+      "why": {
+        "eyebrow": "Why portfólio",
+        "title": "Your work deserves to be seen",
+        "point1": "Public profile with unique URL ready to share on any network",
+        "point2": "Direct GitHub integration to showcase your real repositories",
+        "point3": "Secure OAuth authentication — no weak passwords",
+        "point4": "Clean, professional design that impresses from the first scroll",
+        "cta": "Get started now",
+        "stat1": "To create your portfolio",
+        "stat2": "Customizable",
+        "stat3": "GitHub & Google",
+        "stat4": "To share"
       },
       "cta": {
-        "title": "Start today, it's free",
-        "description": "Join thousands of professionals who already landed their next opportunity with a standout portfolio.",
-        "button": "Create my portfolio"
+        "title": "Ready to stand out?",
+        "description": "Create your professional portfolio for free. No credit card, no limits.",
+        "button": "Create my portfolio",
+        "noCard": "Free forever on the basic plan"
       }
     },
     "nav": {
       "home": "Home",
       "login": "Sign in",
-      "signup": "Sign up",
+      "signup": "Get started",
       "dashboard": "Dashboard",
-      "logout": "Sign out"
+      "logout": "Sign out",
+      "myProfile": "My profile",
+      "features": "Features",
+      "pricing": "Pricing",
+      "howItWorks": "How it works"
     },
     "footer": {
-      "rights": "All rights reserved."
+      "tagline": "The simplest way to show your work to the world.",
+      "rights": "All rights reserved.",
+      "madeWith": "Made with",
+      "col": { "product": "Product", "resources": "Resources", "legal": "Legal" },
+      "links": {
+        "features": "Features", "howItWorks": "How it works", "pricing": "Pricing",
+        "docs": "Documentation", "api": "API", "blog": "Blog",
+        "privacy": "Privacy", "terms": "Terms", "cookies": "Cookies"
+      }
     },
     "login": {
-      "title": "Sign in to GitHub",
+      "title": "Sign in",
       "signInWithGithub": "Sign in with GitHub"
     },
     "signup": {
       "title": "Create your account",
-      "subtitle": "Sign up to get started with your portfolio",
-      "signUpWithGithub": "Sign up with GitHub"
+      "subtitle": "Sign up to get started with your professional portfolio",
+      "signUpWithGithub": "Sign up with GitHub",
+      "signUpWithGoogle": "Sign up with Google",
+      "or": "Or continue with email",
+      "username": "Username",
+      "usernamePlaceholder": "your_username",
+      "fullName": "Full name",
+      "fullNamePlaceholder": "John Doe",
+      "email": "Email address",
+      "emailPlaceholder": "your@email.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "passwordHint": "Minimum 8 characters",
+      "createAccount": "Create account",
+      "creating": "Creating account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "loginLink": "Sign in",
+      "successMessage": "Account created successfully! Welcome.",
+      "errorUsername": "Username is required",
+      "errorUsernameMin": "Username must be at least 3 characters",
+      "errorEmail": "Enter a valid email address",
+      "errorName": "Full name is required",
+      "errorPasswordMin": "Password must be at least 8 characters",
+      "errorGeneric": "An error occurred while creating the account"
     },
     "loginDrawer": {
       "title": "Sign in",
       "subtitle": "Choose how you want to continue",
       "continueWithGoogle": "Continue with Google",
       "continueWithGitHub": "Continue with GitHub",
-      "continueWithEmail": "Continue with email",
+      "continueWithEmail": "Sign in",
       "or": "OR",
-      "email": "Email",
-      "emailPlaceholder": "your@email.com",
+      "usernameOrEmail": "Username or email",
+      "usernamePlaceholder": "your_username or your@email.com",
       "password": "Password",
       "passwordPlaceholder": "••••••••",
       "noAccount": "Don't have an account?",
-      "signUp": "Sign up"
+      "signUp": "Sign up",
+      "loading": "Signing in...",
+      "loginSuccess": "Signed in successfully!",
+      "errorRequired": "Please fill in all fields",
+      "errorInvalid": "Invalid credentials. Please check your username and password."
     },
     "dashboard": {
       "title": "Dashboard",
-      "recentActivity": "Recent Activity",
-      "noActivity": "No recent activity to show.",
-      "repositories": "Repositories",
-      "noRepositories": "You don't have any repositories yet."
+      "welcome": "Hello",
+      "welcomeSubtitle": "Manage your professional portfolio from here.",
+      "loggedOut": "Signed out successfully",
+      "viewPublicProfile": "View my public profile",
+      "completeProfile": "Complete your profile",
+      "completeProfileHint": "Add a photo, bio and more information to improve your portfolio.",
+      "complete": "Complete",
+      "manage": "Manage",
+      "nav": {
+        "overview": "Overview",
+        "projects": "Projects",
+        "skills": "Skills",
+        "repos": "Repositories",
+        "profile": "Profile"
+      }
+    },
+    "projects": {
+      "title": "My Projects",
+      "subtitle": "Manage your portfolio projects",
+      "addProject": "New project",
+      "newProject": "New project",
+      "editProject": "Edit project",
+      "empty": "You don't have any projects yet",
+      "emptyHint": "Add projects to showcase your work in your portfolio",
+      "visit": "View project",
+      "created": "Project created successfully",
+      "updated": "Project updated successfully",
+      "deleted": "Project deleted",
+      "confirmDelete": "Are you sure you want to delete this project?",
+      "errorLoad": "Error loading projects",
+      "errorSave": "Error saving project",
+      "errorDelete": "Error deleting project",
+      "errorTitle": "Project title is required",
+      "form": {
+        "title": "Title",
+        "titlePlaceholder": "My awesome project",
+        "description": "Description",
+        "descriptionPlaceholder": "Briefly describe your project...",
+        "url": "Project URL",
+        "image": "Image URL (cover)"
+      }
+    },
+    "skills": {
+      "title": "My Skills",
+      "subtitle": "Showcase your technologies and competencies",
+      "addSkill": "New skill",
+      "newSkill": "New skill",
+      "editSkill": "Edit skill",
+      "empty": "No skills added yet",
+      "emptyHint": "Add your technical skills to enrich your profile",
+      "created": "Skill created successfully",
+      "updated": "Skill updated successfully",
+      "deleted": "Skill deleted",
+      "confirmDelete": "Do you want to delete this skill?",
+      "errorLoad": "Error loading skills",
+      "errorSave": "Error saving skill",
+      "errorDelete": "Error deleting skill",
+      "errorName": "Skill name is required",
+      "form": {
+        "name": "Name",
+        "namePlaceholder": "React, TypeScript, Node.js...",
+        "description": "Description",
+        "descriptionPlaceholder": "Describe your experience level..."
+      }
+    },
+    "repos": {
+      "title": "GitHub Repositories",
+      "subtitle": "Repositories of @{{username}}",
+      "notConnected": "GitHub account not connected",
+      "notConnectedHint": "To see your GitHub repositories, sign in with your GitHub account.",
+      "connectGitHub": "Connect with GitHub",
+      "empty": "No public repositories found",
+      "errorLoad": "Error loading repositories"
+    },
+    "profile": {
+      "title": "Edit Profile",
+      "subtitle": "Customize how you appear on your public portfolio",
+      "username": "Username",
+      "fullName": "Full name",
+      "displayName": "Display name",
+      "displayNamePlaceholder": "The name visitors will see",
+      "email": "Email address",
+      "location": "Location",
+      "locationPlaceholder": "City, Country",
+      "website": "Website",
+      "avatarUrl": "Avatar URL",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself, your experience and what you're passionate about...",
+      "saveChanges": "Save changes",
+      "saved": "Profile updated successfully",
+      "connectedVia": "Connected via {{provider}}",
+      "errorRequired": "Username and name are required",
+      "errorSave": "Error saving profile"
+    },
+    "common": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "edit": "Edit",
+      "create": "Create",
+      "loading": "Loading...",
+      "error": "Error",
+      "success": "Success"
     },
     "error": {
       "title": "Something went wrong",

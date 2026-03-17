@@ -23,8 +23,7 @@ export const useSessionValidation = () => {
       try {
         // Verificar si el token sigue siendo válido
         const userProfile = await verifySession();
-        console.log('✅ Sesión válida:', userProfile);
-        setToken(token); // Actualizar el estado global
+        setToken(token, userProfile); // Actualizar el estado global
       } catch (error) {
         console.error('❌ Token inválido o expirado, limpiando sesión:', error);
         logout();

@@ -1,6 +1,12 @@
-import { X, Mail } from 'lucide-react';
+import { X, Mail, Loader2, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { login } from '../features/auth/services/authService';
+import { getGitHubOAuthUrl, getGoogleOAuthUrl } from '../features/github/services/githubService';
+import { useAuthStore } from '../store/useAuthStore';
+import { toast } from './Toast';
 
 interface LoginDrawerProps {
   isOpen: boolean;
@@ -9,23 +15,65 @@ interface LoginDrawerProps {
 
 export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const setToken = useAuthStore((s) => s.setToken);
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const callbackUrl = `${window.location.origin}/auth/callback`;
+
+  const handleGitHub = () => {
+    const url = getGitHubOAuthUrl(callbackUrl);
+    sessionStorage.setItem('oauth_provider', 'github');
+    window.location.href = url;
+  };
+
+  const handleGoogle = () => {
+    const url = getGoogleOAuthUrl(callbackUrl);
+    sessionStorage.setItem('oauth_provider', 'google');
+    window.location.href = url;
+  };
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username.trim() || !password.trim()) {
+      setError(t('loginDrawer.errorRequired'));
+      return;
+    }
+    setError('');
+    setLoading(true);
+    try {
+      const response = await login({ username, password });
+      Cookies.set('jwt_token', response.token, { expires: 7, secure: true, sameSite: 'strict' });
+      setToken(response.token, response.user);
+      toast.success(t('loginDrawer.loginSuccess'));
+      onClose();
+      navigate('/admin/dashboard');
+    } catch (err: any) {
+      const msg = err?.response?.data?.message || err?.response?.data || t('loginDrawer.errorInvalid');
+      setError(typeof msg === 'string' ? msg : t('loginDrawer.errorInvalid'));
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      {/* Overlay */}
-      <div 
+      <div
         className={`fixed inset-0 bg-black z-40 transition-opacity duration-300 ${
           isOpen ? 'bg-opacity-20 opacity-40' : 'bg-opacity-0 opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
       />
-      
-      {/* Drawer */}
+
       <div className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white dark:bg-[#0d1117] shadow-2xl z-50 transform transition-all duration-500 ease-in-out ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
-          {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               {t('loginDrawer.title')}
@@ -38,15 +86,15 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
             </button>
           </div>
 
-          {/* Content */}
           <div className="flex-1 overflow-y-auto p-6">
             <div className="space-y-4">
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
                 {t('loginDrawer.subtitle')}
               </p>
 
-              {/* Google Login */}
-              <button 
+              {/* Google */}
+              <button
+                onClick={handleGoogle}
                 className="w-full flex items-center justify-center gap-3 bg-white dark:bg-[#161b22] border-2 border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 text-gray-900 dark:text-white rounded-lg py-3 px-4 font-semibold transition-all hover:shadow-md"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -58,8 +106,9 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
                 {t('loginDrawer.continueWithGoogle')}
               </button>
 
-              {/* GitHub Login */}
-              <button 
+              {/* GitHub */}
+              <button
+                onClick={handleGitHub}
                 className="w-full flex items-center justify-center gap-3 bg-[#24292f] hover:bg-[#2c3237] text-white rounded-lg py-3 px-4 font-semibold transition-colors"
               >
                 <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -68,7 +117,6 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
                 {t('loginDrawer.continueWithGitHub')}
               </button>
 
-              {/* Divider */}
               <div className="relative my-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
@@ -80,47 +128,68 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
                 </div>
               </div>
 
-              {/* Email/Password Form */}
-              <div className="space-y-4">
+              <form onSubmit={handleEmailLogin} className="space-y-4">
+                {error && (
+                  <div className="text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg px-3 py-2">
+                    {error}
+                  </div>
+                )}
+
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    {t('loginDrawer.email')}
+                  <label htmlFor="drawer-username" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    {t('loginDrawer.usernameOrEmail')}
                   </label>
                   <input
-                    type="email"
-                    id="email"
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#161b22] dark:text-white"
-                    placeholder={t('loginDrawer.emailPlaceholder')}
+                    id="drawer-username"
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    autoComplete="username"
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#161b22] dark:text-white"
+                    placeholder={t('loginDrawer.usernamePlaceholder')}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label htmlFor="drawer-password" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     {t('loginDrawer.password')}
                   </label>
-                  <input
-                    type="password"
-                    id="password"
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-[#161b22] dark:text-white"
-                    placeholder={t('loginDrawer.passwordPlaceholder')}
-                  />
+                  <div className="relative">
+                    <input
+                      id="drawer-password"
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      autoComplete="current-password"
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#161b22] dark:text-white"
+                      placeholder={t('loginDrawer.passwordPlaceholder')}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((v) => !v)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  </div>
                 </div>
 
-                <button 
-                  className="w-full flex items-center justify-center gap-2 bg-[#2da44e] hover:bg-[#2c974b] text-white rounded-lg py-3 px-4 font-semibold transition-colors"
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full flex items-center justify-center gap-2 bg-[#2da44e] hover:bg-[#2c974b] disabled:opacity-60 text-white rounded-lg py-3 px-4 font-semibold transition-colors"
                 >
-                  <Mail className="w-5 h-5" />
-                  {t('loginDrawer.continueWithEmail')}
+                  {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Mail className="w-5 h-5" />}
+                  {loading ? t('loginDrawer.loading') : t('loginDrawer.continueWithEmail')}
                 </button>
-              </div>
+              </form>
 
-              {/* Footer */}
               <div className="mt-6 text-center text-sm text-gray-600 dark:text-gray-400">
                 {t('loginDrawer.noAccount')}{' '}
                 <Link
                   to="/signup"
                   onClick={onClose}
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-semibold"
+                  className="text-[#2da44e] hover:underline font-semibold"
                 >
                   {t('loginDrawer.signUp')}
                 </Link>

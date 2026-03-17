@@ -2,48 +2,109 @@
   "translation": {
     "home": {
       "hero": {
-        "badge": "Nuevo · Portafolios con IA",
-        "title": "Tu carrera profesional merece algo mejor que un PDF",
-        "description": "Diseña un portafolio de alto impacto en minutos. Sin código, optimizado para reclutadores y listo para asegurar tu próxima entrevista.",
-        "cta": "Empieza gratis ahora",
-        "secondaryCta": "Ver funciones"
-      },
-      "stats": {
-        "users": "Usuarios activos",
-        "portfolios": "Portafolios creados",
-        "interviews": "Tasa de entrevistas"
+        "badge": "Tu portafolio, tu identidad",
+        "titleLine1": "Muestra quién eres",
+        "titleLine2": "al mundo",
+        "description": "Crea tu portafolio profesional en minutos, conecta tus repositorios de GitHub y comparte una URL que te representa de verdad.",
+        "cta": "Crear mi portafolio gratis",
+        "secondaryCta": "Ver cómo funciona"
       },
       "features": {
+        "eyebrow": "Funcionalidades",
         "title": "Todo lo que necesitas",
-        "subtitle": "Herramientas diseñadas para que tu perfil destaque desde el primer segundo.",
-        "speed": {
-          "title": "Listo en minutos",
-          "description": "Crea tu portafolio completo en menos de 5 minutos con nuestro asistente guiado. Sin conocimientos técnicos."
+        "subtitle": "Construido para desarrolladores y profesionales que quieren destacar.",
+        "github": {
+          "title": "Conecta con GitHub",
+          "description": "Importa tus repositorios directamente y vincúlalos a tus proyectos del portafolio con un clic."
         },
-        "design": {
-          "title": "Diseño profesional",
-          "description": "Plantillas modernas y personalizables que impresionan a reclutadores desde la primera vista."
+        "url": {
+          "title": "URL personalizada",
+          "description": "Tu portafolio vive en portf.io/tu-usuario — una dirección limpia que puedes compartir en cualquier lugar."
+        },
+        "projects": {
+          "title": "Gestión de proyectos",
+          "description": "Organiza y muestra tus proyectos con título, descripción, imagen, tecnologías y enlace."
+        },
+        "security": {
+          "title": "Acceso seguro",
+          "description": "Login con GitHub, Google o email. OAuth 2.0, JWT y datos cifrados para mantener tu cuenta protegida."
+        },
+        "skills": {
+          "title": "Habilidades técnicas",
+          "description": "Declara tus tecnologías y competencias. Deja que tu perfil hable por ti antes de la entrevista."
         },
         "share": {
-          "title": "Comparte al instante",
-          "description": "Tu portafolio vive en una URL única. Compártelo en LinkedIn, correo o cualquier lugar con un solo enlace."
+          "title": "Comparte en segundos",
+          "description": "Un enlace, todos los detalles. Comparte en LinkedIn, CV o directamente con reclutadores."
         }
       },
+      "howItWorks": {
+        "eyebrow": "Proceso",
+        "title": "Listo en tres pasos",
+        "step1": {
+          "title": "Crea tu cuenta",
+          "description": "Regístrate con GitHub, Google o tu correo. Sin formularios largos."
+        },
+        "step2": {
+          "title": "Construye tu perfil",
+          "description": "Agrega proyectos, habilidades, bio y vincula tus repos de GitHub."
+        },
+        "step3": {
+          "title": "Comparte tu portafolio",
+          "description": "Obtén tu URL pública y úsala en tu CV, LinkedIn o donde quieras."
+        }
+      },
+      "why": {
+        "eyebrow": "Por qué portfólio",
+        "title": "Tu trabajo merece ser visto",
+        "point1": "Perfil público con URL única lista para compartir en cualquier red",
+        "point2": "Integración directa con GitHub para mostrar tus repositorios reales",
+        "point3": "Autenticación segura con OAuth — sin contraseñas débiles",
+        "point4": "Diseño limpio y profesional que impresiona desde el primer scroll",
+        "cta": "Empieza ahora",
+        "stat1": "Para crear tu portafolio",
+        "stat2": "Personalizable",
+        "stat3": "GitHub & Google",
+        "stat4": "Para compartir"
+      },
       "cta": {
-        "title": "Empieza hoy, es gratis",
-        "description": "Únete a miles de profesionales que ya consiguieron su próxima oportunidad con un portafolio que destaca.",
-        "button": "Crear mi portafolio"
+        "title": "¿Listo para destacar?",
+        "description": "Crea tu portafolio profesional gratis. Sin tarjeta de crédito, sin límites.",
+        "button": "Crear mi portafolio",
+        "noCard": "Gratis para siempre en el plan básico"
       }
     },
     "nav": {
       "home": "Inicio",
       "login": "Iniciar sesión",
-      "signup": "Registrarse",
+      "signup": "Crear cuenta",
       "dashboard": "Panel",
-      "logout": "Cerrar sesión"
+      "logout": "Cerrar sesión",
+      "myProfile": "Mi perfil",
+      "features": "Funciones",
+      "pricing": "Precios",
+      "howItWorks": "Cómo funciona"
     },
     "footer": {
-      "rights": "Todos los derechos reservados."
+      "tagline": "La forma más sencilla de mostrar tu trabajo al mundo.",
+      "rights": "Todos los derechos reservados.",
+      "madeWith": "Hecho con",
+      "col": {
+        "product": "Producto",
+        "resources": "Recursos",
+        "legal": "Legal"
+      },
+      "links": {
+        "features": "Funciones",
+        "howItWorks": "Cómo funciona",
+        "pricing": "Precios",
+        "docs": "Documentación",
+        "api": "API",
+        "blog": "Blog",
+        "privacy": "Privacidad",
+        "terms": "Términos",
+        "cookies": "Cookies"
+      }
     },
     "login": {
       "title": "Inicia sesión",
@@ -51,29 +112,154 @@
     },
     "signup": {
       "title": "Crea tu cuenta",
-      "subtitle": "Regístrate para comenzar con tu portafolio",
-      "signUpWithGithub": "Registrarse con GitHub"
+      "subtitle": "Regístrate para comenzar con tu portafolio profesional",
+      "signUpWithGithub": "Registrarse con GitHub",
+      "signUpWithGoogle": "Registrarse con Google",
+      "or": "O continúa con tu correo",
+      "username": "Nombre de usuario",
+      "usernamePlaceholder": "tu_usuario",
+      "fullName": "Nombre completo",
+      "fullNamePlaceholder": "Juan Pérez",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "tu@email.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "passwordHint": "Mínimo 8 caracteres",
+      "createAccount": "Crear cuenta",
+      "creating": "Creando cuenta...",
+      "alreadyHaveAccount": "¿Ya tienes cuenta?",
+      "loginLink": "Inicia sesión",
+      "successMessage": "¡Cuenta creada exitosamente! Bienvenido.",
+      "errorUsername": "El nombre de usuario es requerido",
+      "errorUsernameMin": "El nombre de usuario debe tener al menos 3 caracteres",
+      "errorEmail": "Ingresa un correo electrónico válido",
+      "errorName": "El nombre completo es requerido",
+      "errorPasswordMin": "La contraseña debe tener al menos 8 caracteres",
+      "errorGeneric": "Ocurrió un error al crear la cuenta"
     },
     "loginDrawer": {
       "title": "Iniciar sesión",
       "subtitle": "Elige cómo quieres continuar",
       "continueWithGoogle": "Continuar con Google",
       "continueWithGitHub": "Continuar con GitHub",
-      "continueWithEmail": "Continuar con correo",
+      "continueWithEmail": "Iniciar sesión",
       "or": "O",
-      "email": "Correo electrónico",
-      "emailPlaceholder": "tu@email.com",
+      "usernameOrEmail": "Usuario o correo electrónico",
+      "usernamePlaceholder": "tu_usuario o tu@email.com",
       "password": "Contraseña",
       "passwordPlaceholder": "••••••••",
       "noAccount": "¿No tienes cuenta?",
-      "signUp": "Regístrate"
+      "signUp": "Regístrate",
+      "loading": "Iniciando sesión...",
+      "loginSuccess": "¡Sesión iniciada correctamente!",
+      "errorRequired": "Por favor completa todos los campos",
+      "errorInvalid": "Credenciales inválidas. Verifica tu usuario y contraseña."
     },
     "dashboard": {
       "title": "Panel de Control",
-      "recentActivity": "Actividad Reciente",
-      "noActivity": "No hay actividad reciente para mostrar.",
-      "repositories": "Repositorios",
-      "noRepositories": "Aún no tienes ningún repositorio."
+      "welcome": "Hola",
+      "welcomeSubtitle": "Gestiona tu portafolio profesional desde aquí.",
+      "loggedOut": "Sesión cerrada correctamente",
+      "viewPublicProfile": "Ver mi perfil público",
+      "completeProfile": "Completa tu perfil",
+      "completeProfileHint": "Agrega una foto, bio y más información para mejorar tu portafolio.",
+      "complete": "Completar",
+      "manage": "Gestionar",
+      "nav": {
+        "overview": "Inicio",
+        "projects": "Proyectos",
+        "skills": "Habilidades",
+        "repos": "Repositorios",
+        "profile": "Perfil"
+      }
+    },
+    "projects": {
+      "title": "Mis Proyectos",
+      "subtitle": "Administra los proyectos de tu portafolio",
+      "addProject": "Nuevo proyecto",
+      "newProject": "Nuevo proyecto",
+      "editProject": "Editar proyecto",
+      "empty": "Aún no tienes proyectos",
+      "emptyHint": "Agrega proyectos para mostrar tu trabajo en tu portafolio",
+      "visit": "Ver proyecto",
+      "created": "Proyecto creado correctamente",
+      "updated": "Proyecto actualizado correctamente",
+      "deleted": "Proyecto eliminado",
+      "confirmDelete": "¿Estás seguro de que deseas eliminar este proyecto?",
+      "errorLoad": "Error al cargar los proyectos",
+      "errorSave": "Error al guardar el proyecto",
+      "errorDelete": "Error al eliminar el proyecto",
+      "errorTitle": "El título del proyecto es requerido",
+      "form": {
+        "title": "Título",
+        "titlePlaceholder": "Mi proyecto increíble",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Describe brevemente tu proyecto...",
+        "url": "URL del proyecto",
+        "image": "URL de imagen (portada)"
+      }
+    },
+    "skills": {
+      "title": "Mis Habilidades",
+      "subtitle": "Muestra tus tecnologías y competencias",
+      "addSkill": "Nueva habilidad",
+      "newSkill": "Nueva habilidad",
+      "editSkill": "Editar habilidad",
+      "empty": "Aún no tienes habilidades registradas",
+      "emptyHint": "Agrega tus habilidades técnicas para enriquecer tu perfil",
+      "created": "Habilidad creada correctamente",
+      "updated": "Habilidad actualizada correctamente",
+      "deleted": "Habilidad eliminada",
+      "confirmDelete": "¿Deseas eliminar esta habilidad?",
+      "errorLoad": "Error al cargar las habilidades",
+      "errorSave": "Error al guardar la habilidad",
+      "errorDelete": "Error al eliminar la habilidad",
+      "errorName": "El nombre de la habilidad es requerido",
+      "form": {
+        "name": "Nombre",
+        "namePlaceholder": "React, TypeScript, Node.js...",
+        "description": "Descripción",
+        "descriptionPlaceholder": "Describe tu nivel de experiencia..."
+      }
+    },
+    "repos": {
+      "title": "Repositorios de GitHub",
+      "subtitle": "Repositorios de @{{username}}",
+      "notConnected": "Cuenta de GitHub no conectada",
+      "notConnectedHint": "Para ver tus repositorios de GitHub, inicia sesión con tu cuenta de GitHub.",
+      "connectGitHub": "Conectar con GitHub",
+      "empty": "No tienes repositorios públicos",
+      "errorLoad": "Error al cargar los repositorios"
+    },
+    "profile": {
+      "title": "Editar Perfil",
+      "subtitle": "Personaliza cómo te muestras en tu portafolio público",
+      "username": "Nombre de usuario",
+      "fullName": "Nombre completo",
+      "displayName": "Nombre para mostrar",
+      "displayNamePlaceholder": "El nombre que verán los visitantes",
+      "email": "Correo electrónico",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ciudad, País",
+      "website": "Sitio web",
+      "avatarUrl": "URL del avatar",
+      "bio": "Biografía",
+      "bioPlaceholder": "Cuéntanos sobre ti, tu experiencia y qué te apasiona...",
+      "saveChanges": "Guardar cambios",
+      "saved": "Perfil actualizado correctamente",
+      "connectedVia": "Conectado via {{provider}}",
+      "errorRequired": "Usuario y nombre son requeridos",
+      "errorSave": "Error al guardar el perfil"
+    },
+    "common": {
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "delete": "Eliminar",
+      "edit": "Editar",
+      "create": "Crear",
+      "loading": "Cargando...",
+      "error": "Error",
+      "success": "Éxito"
     },
     "error": {
       "title": "Ha ocurrido un error",

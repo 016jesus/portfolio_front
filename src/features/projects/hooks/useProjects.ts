@@ -23,14 +23,16 @@ export const useProjects = (username: string) => {
       try {
         setLoading(true);
         const user = await getPublicProfile(username);
-        console.log('Perfil del usuario para proyectos:', user);
+        console.log('✅ Perfil del usuario para proyectos:', user);
         const data = await getProjectsByUsername(username, user.tenantId);
-        console.log('Proyectos obtenidos:', data);
+        console.log('✅ Proyectos obtenidos:', data.length > 0 ? data : 'Sin proyectos');
         setProjects(data);
         setError(null);
       } catch (err) {
-        console.error('❌ Error al obtener proyectos:', err);
+        console.error('❌ Error al obtener datos:', err);
+        // Solo marcar error si realmente falló (ej: usuario no existe)
         setError(err instanceof Error ? err : new Error('Error desconocido'));
+        setProjects([]);
       } finally {
         setLoading(false);
       }
