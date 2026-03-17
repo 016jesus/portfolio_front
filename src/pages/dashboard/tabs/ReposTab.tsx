@@ -142,7 +142,7 @@ export const ReposTab = () => {
 
               {repo.topics.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-3">
-                  {repo.topics.slice(0, 4).map((topic) => (
+                  {repo.topics.slice(0, 4).map((topic: string) => (
                     <span key={topic} className="text-xs bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full">
                       {topic}
                     </span>

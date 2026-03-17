@@ -1,5 +1,5 @@
 import apiClient from '../../../lib/apiClient';
-import type { Project, CreateProjectDto } from '../../../core/models';
+import type { Project, CreateProjectDto, UpdateProjectDto } from '../../../core/models';
 
 /**
  * Obtener todos los proyectos de un usuario por su username
@@ -36,7 +36,7 @@ export const createProject = async (project: CreateProjectDto): Promise<Project>
 /**
  * Actualizar un proyecto existente
  */
-export const updateProject = async (id: string, project: Partial<CreateProjectDto>): Promise<Project> => {
+export const updateProject = async (id: string, project: UpdateProjectDto): Promise<Project> => {
   const response = await apiClient.put<Project>(`/api/Projects/${id}`, project);
   return response.data;
 };

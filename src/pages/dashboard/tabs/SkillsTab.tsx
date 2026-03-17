@@ -4,7 +4,7 @@ import { Plus, Pencil, Trash2, Loader2, X, Code2 } from 'lucide-react';
 import apiClient from '../../../lib/apiClient';
 import { useAuthStore } from '../../../store/useAuthStore';
 import { toast } from '../../../components/Toast';
-import type { Skill, CreateSkillDto } from '../../../core/models';
+import type { Skill, CreateSkillDto } from './../../../core/models';
 
 const emptyForm = { name: '', description: '' };
 
