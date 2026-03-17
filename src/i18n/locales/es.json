@@ -265,6 +265,23 @@
       "title": "Ha ocurrido un error",
       "description": "No se pudo cargar la página. Inténtalo de nuevo más tarde.",
       "backHome": "Volver al inicio"
+    },
+    "setup": {
+      "title": "¡Bienvenido! Configura tu perfil",
+      "subtitle": "Cuéntanos un poco sobre ti para personalizar tu portafolio.",
+      "username": "Tu nombre de usuario",
+      "usernameHint": "Tu portafolio estará en /p/tu-usuario",
+      "displayName": "Nombre para mostrar",
+      "displayNamePlaceholder": "Ej: Juan García",
+      "bio": "Biografía",
+      "bioPlaceholder": "Cuéntanos sobre ti, tu experiencia o lo que haces...",
+      "location": "Ubicación",
+      "locationPlaceholder": "Ej: Madrid, España",
+      "website": "Sitio web",
+      "skip": "Omitir por ahora",
+      "save": "Guardar y continuar",
+      "editLater": "Puedes editar esta información en cualquier momento desde tu perfil.",
+      "error": "No se pudo guardar el perfil. Inténtalo de nuevo."
     }
   }
 }

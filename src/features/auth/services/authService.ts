@@ -23,6 +23,7 @@ export interface AuthResponse {
   token: string;
   expiresAt: string;
   user: User;
+  isNewUser?: boolean;
 }
 
 export const login = async (credentials: LoginCredentials): Promise<AuthResponse> => {

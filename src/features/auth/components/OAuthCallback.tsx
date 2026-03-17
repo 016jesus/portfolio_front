@@ -45,7 +45,7 @@ export const OAuthCallback = () => {
       .then((response) => {
         Cookies.set('jwt_token', response.token, { expires: 7, secure: true, sameSite: 'strict' });
         setToken(response.token, response.user);
-        navigate('/admin/dashboard', { replace: true });
+        navigate(response.isNewUser ? '/setup' : '/admin/dashboard', { replace: true });
       })
       .catch(() => {
         navigate('/login?error=auth_failed', { replace: true });

@@ -228,6 +228,23 @@
       "title": "Something went wrong",
       "description": "We couldn't load this page. Please try again later.",
       "backHome": "Back to home"
+    },
+    "setup": {
+      "title": "Welcome! Set up your profile",
+      "subtitle": "Tell us a bit about yourself to personalize your portfolio.",
+      "username": "Your username",
+      "usernameHint": "Your portfolio will be at /p/your-username",
+      "displayName": "Display name",
+      "displayNamePlaceholder": "E.g: John Doe",
+      "bio": "Bio",
+      "bioPlaceholder": "Tell us about yourself, your experience or what you do...",
+      "location": "Location",
+      "locationPlaceholder": "E.g: New York, USA",
+      "website": "Website",
+      "skip": "Skip for now",
+      "save": "Save and continue",
+      "editLater": "You can edit this information anytime from your profile.",
+      "error": "Could not save profile. Please try again."
     }
   }
 }
