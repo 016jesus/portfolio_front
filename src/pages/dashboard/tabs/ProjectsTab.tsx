@@ -32,7 +32,7 @@ interface SortableProjectCardProps {
   onTogglePin: (p: Project) => void;
   onToggleVisibility: (p: Project) => void;
   deleting: string | null;
-  t: (key: string, fallback?: string) => string;
+  t: ReturnType<typeof import('react-i18next').useTranslation>['t'];
 }
 
 const SortableProjectCard = ({

@@ -48,7 +48,7 @@ export const ProjectCard = ({
   source,
   isPinned = false,
   isVisible = true,
-  gitHubRepoName,
+  gitHubRepoName: _gitHubRepoName,
   mode = 'public',
   onEdit,
   onTogglePin,
