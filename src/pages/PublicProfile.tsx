@@ -1,14 +1,29 @@
-import { useParams } from 'react-router-dom';
-import { useProjects } from '../features/projects/hooks/useProjects';
+import { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useProfile } from '../hooks/useProfile';
-import { Mail, Link as LinkIcon, Calendar, ExternalLink, User as UserIcon } from 'lucide-react';
+import { usePortfolioStore } from '../store/usePortfolioStore';
+import { useAuthStore } from '../store/useAuthStore';
+import { ProjectCard } from '../components/ProjectCard';
+import { Mail, Calendar, Pin, FolderOpen, User as UserIcon, Settings } from 'lucide-react';
 
 export const PublicProfile = () => {
+  const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const { profile, loading: loadingProfile, error: profileError } = useProfile(slug);
-  const { projects, loading: loadingProjects } = useProjects(slug || '');
+  const { publicPortfolio, fetchPublicPortfolio, loading: loadingPortfolio } = usePortfolioStore();
+  const authUser = useAuthStore(s => s.user);
 
-  const isLoading = loadingProfile || loadingProjects;
+  const isOwner = authUser?.username === slug;
+
+  useEffect(() => {
+    if (slug) fetchPublicPortfolio(slug);
+  }, [slug]);
+
+  const isLoading = loadingProfile || loadingPortfolio;
+
+  const pinnedProjects = publicPortfolio.filter(p => p.isPinned);
+  const otherProjects = publicPortfolio.filter(p => !p.isPinned);
 
   if (isLoading) {
     return (
@@ -26,9 +41,11 @@ export const PublicProfile = () => {
           <div className="inline-flex items-center justify-center w-20 h-20 bg-red-100 dark:bg-red-900/20 rounded-full mb-4">
             <UserIcon className="w-10 h-10 text-red-600 dark:text-red-400" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Usuario no encontrado</h1>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            {t('publicProfile.notFound', 'Usuario no encontrado')}
+          </h1>
           <p className="text-gray-600 dark:text-gray-400">
-            El usuario <span className="font-semibold text-blue-600">@{slug}</span> no existe.
+            {t('publicProfile.notFoundDesc', 'El usuario')} <span className="font-semibold text-blue-600">@{slug}</span> {t('publicProfile.notFoundSuffix', 'no existe.')}
           </p>
         </div>
       </div>
@@ -39,7 +56,7 @@ export const PublicProfile = () => {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
       {/* Hero Header con foto de perfil */}
       <div className="bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 h-48"></div>
-      
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Perfil del usuario */}
         <div className="relative -mt-20 mb-12">
@@ -63,13 +80,13 @@ export const PublicProfile = () => {
                 <div className="absolute bottom-2 right-2 w-6 h-6 bg-green-500 border-4 border-white dark:border-gray-900 rounded-full"></div>
               </div>
 
-              {/* Información del usuario */}
+              {/* Informacion del usuario */}
               <div className="flex-1">
                 <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                   {profile?.displayName || profile?.username || slug}
                 </h1>
                 <p className="text-lg text-gray-600 dark:text-gray-400 mb-4">@{profile?.username || slug}</p>
-                
+
                 {profile?.bio && (
                   <p className="text-gray-700 dark:text-gray-300 mb-4 max-w-2xl">{profile.bio}</p>
                 )}
@@ -83,7 +100,7 @@ export const PublicProfile = () => {
                   )}
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4" />
-                    <span>Miembro desde 2026</span>
+                    <span>{t('publicProfile.memberSince', 'Miembro desde 2026')}</span>
                   </div>
                 </div>
               </div>
@@ -91,71 +108,103 @@ export const PublicProfile = () => {
           </div>
         </div>
 
-        {/* Sección de Proyectos */}
+        {/* Owner banner */}
+        {isOwner && (
+          <div className="mb-6 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800 rounded-xl px-5 py-3 flex items-center justify-between">
+            <p className="text-sm text-blue-700 dark:text-blue-300">
+              {t('publicProfile.ownerBanner', 'Este es tu perfil publico. Personaliza tu portafolio desde el panel.')}
+            </p>
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+            >
+              <Settings className="w-4 h-4" />
+              {t('publicProfile.goToDashboard', 'Personalizar')}
+            </Link>
+          </div>
+        )}
+
+        {/* Seccion de Proyectos */}
         <section className="pb-16">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
-              Proyectos <span className="text-gray-500 dark:text-gray-400 font-normal">({projects.length})</span>
+              {t('publicProfile.projects', 'Proyectos')}{' '}
+              <span className="text-gray-500 dark:text-gray-400 font-normal">({publicPortfolio.length})</span>
+              {pinnedProjects.length > 0 && (
+                <span className="ml-2 text-sm text-green-600 dark:text-green-400 font-normal">
+                  <Pin className="w-3.5 h-3.5 inline mb-0.5" /> {pinnedProjects.length} {t('publicProfile.pinned', 'fijados')}
+                </span>
+              )}
             </h2>
           </div>
 
-          {projects.length === 0 ? (
+          {publicPortfolio.length === 0 ? (
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-12 text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
-                <LinkIcon className="w-8 h-8 text-gray-400" />
+                <FolderOpen className="w-8 h-8 text-gray-400" />
               </div>
-              <p className="text-gray-600 dark:text-gray-400">Este usuario aún no tiene proyectos publicados.</p>
+              <p className="text-gray-600 dark:text-gray-400">
+                {t('publicProfile.noProjects', 'Este usuario aun no tiene proyectos publicados.')}
+              </p>
             </div>
           ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {projects.map((project) => (
-              <article
-                key={project.id}
-                className="group bg-white dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500"
-              >
-                {project.image ? (
-                  <div className="relative overflow-hidden aspect-video">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            <>
+              {/* Pinned projects section */}
+              {pinnedProjects.length > 0 && (
+                <div className="mb-8">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Pin className="w-4 h-4 text-green-600 dark:text-green-400" />
+                    <h3 className="text-sm font-semibold text-green-700 dark:text-green-400 uppercase tracking-wide">
+                      {t('publicProfile.pinnedSection', 'Destacados')}
+                    </h3>
                   </div>
-                ) : (
-                  <div className="aspect-video bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
-                    <LinkIcon className="w-12 h-12 text-white opacity-50" />
-                  </div>
-                )}
-                
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                    {project.description}
-                  </p>
-                  
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {new Date(project.creationDate).toLocaleDateString('es-ES', { year: 'numeric', month: 'short' })}
-                    </span>
-                    {project.url && (
-                      <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-                      >
-                        <span>Ver proyecto</span>
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
+                  <div className="bg-green-50/50 dark:bg-green-950/10 rounded-2xl p-4 border border-green-100 dark:border-green-900/30">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {pinnedProjects.map((project) => (
+                        <ProjectCard
+                          key={project.id ?? project.title}
+                          title={project.title}
+                          description={project.description}
+                          url={project.url}
+                          image={project.image}
+                          role={project.role}
+                          language={project.language}
+                          stars={project.stars}
+                          technologies={project.technologies}
+                          source={project.source}
+                          isPinned={project.isPinned}
+                          gitHubRepoName={project.gitHubRepoName}
+                          mode="public"
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
+              )}
+
+              {/* Remaining projects */}
+              {otherProjects.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {otherProjects.map((project) => (
+                    <ProjectCard
+                      key={project.id ?? project.title}
+                      title={project.title}
+                      description={project.description}
+                      url={project.url}
+                      image={project.image}
+                      role={project.role}
+                      language={project.language}
+                      stars={project.stars}
+                      technologies={project.technologies}
+                      source={project.source}
+                      isPinned={project.isPinned}
+                      gitHubRepoName={project.gitHubRepoName}
+                      mode="public"
+                    />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </section>
       </div>
