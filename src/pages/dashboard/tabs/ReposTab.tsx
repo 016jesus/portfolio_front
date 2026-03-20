@@ -1,32 +1,93 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Github, Star, GitFork, Loader2, ExternalLink, Globe, Lock } from 'lucide-react';
-import { getMyRepos } from '../../../features/github/services/githubService';
+import { Github, Loader2, ExternalLink } from 'lucide-react';
 import { useAuthStore } from '../../../store/useAuthStore';
+import { usePortfolioStore } from '../../../store/usePortfolioStore';
+import { ProjectCard } from '../../../components/ProjectCard';
+import { toast } from '../../../components/Toast';
 import type { GitHubRepo } from '../../../core/models';
 
 export const ReposTab = () => {
   const { t } = useTranslation();
   const user = useAuthStore((s) => s.user);
 
-  const [repos, setRepos] = useState<GitHubRepo[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const {
+    githubRepos: repos,
+    projects,
+    loading,
+    error,
+    fetchGitHubRepos,
+    fetchProjects,
+    convertRepo,
+    hideRepo,
+    updateVisibility,
+  } = usePortfolioStore();
 
   const isGitHubUser = user?.provider === 'github';
 
   useEffect(() => {
-    if (!isGitHubUser) return;
-    setLoading(true);
-    setError('');
-    getMyRepos()
-      .then(setRepos)
-      .catch((err) => {
-        const msg = err?.response?.data?.message || t('repos.errorLoad');
-        setError(msg);
-      })
-      .finally(() => setLoading(false));
+    if (!isGitHubUser || !user) return;
+    fetchGitHubRepos();
+    fetchProjects(user.username, user.tenantId);
   }, [isGitHubUser]);
+
+  // Build a map of repoId -> project for converted repos
+  const convertedMap = new Map(
+    projects
+      .filter((p) => p.gitHubRepoId != null)
+      .map((p) => [p.gitHubRepoId!, p]),
+  );
+
+  const customizedCount = repos.filter((r) => convertedMap.has(r.id)).length;
+
+  const handleConvert = async (repo: GitHubRepo) => {
+    const confirmed = window.confirm(
+      t('repos.confirmConvert', `Convert "${repo.name}" into a project? You'll be able to customize it afterwards.`),
+    );
+    if (!confirmed) return;
+    try {
+      await convertRepo({
+        gitHubRepoId: repo.id,
+        gitHubRepoName: repo.fullName,
+        title: repo.name,
+        description: repo.description ?? undefined,
+      });
+      toast.success(t('repos.convertSuccess', 'Repo converted to project'));
+    } catch {
+      toast.error(t('repos.convertError', 'Failed to convert repo'));
+    }
+  };
+
+  const handleHide = async (repo: GitHubRepo) => {
+    try {
+      await hideRepo(repo.id);
+      toast.success(t('repos.hidden', 'Repo hidden'));
+    } catch {
+      toast.error(t('repos.hideError', 'Failed to hide repo'));
+    }
+  };
+
+  const handleTogglePin = async (projectId: string, current: { isPinned: boolean; isVisible: boolean; displayOrder: number }) => {
+    try {
+      await updateVisibility(projectId, {
+        ...current,
+        isPinned: !current.isPinned,
+      });
+    } catch {
+      toast.error(t('repos.pinError', 'Failed to update pin'));
+    }
+  };
+
+  const handleToggleVisibility = async (projectId: string, current: { isPinned: boolean; isVisible: boolean; displayOrder: number }) => {
+    try {
+      await updateVisibility(projectId, {
+        ...current,
+        isVisible: !current.isVisible,
+      });
+    } catch {
+      toast.error(t('repos.visibilityError', 'Failed to update visibility'));
+    }
+  };
 
   if (!isGitHubUser) {
     return (
@@ -54,6 +115,7 @@ export const ReposTab = () => {
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('repos.title')}</h2>
@@ -75,6 +137,21 @@ export const ReposTab = () => {
         )}
       </div>
 
+      {/* Count badges */}
+      {!loading && !error && repos.length > 0 && (
+        <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+          <span className="bg-gray-100 dark:bg-gray-800 px-2.5 py-0.5 rounded-full font-medium">
+            {repos.length} {t('repos.repos', 'repos')}
+          </span>
+          {customizedCount > 0 && (
+            <span className="bg-[#2da44e]/10 text-[#2da44e] px-2.5 py-0.5 rounded-full font-medium">
+              {customizedCount} {t('repos.customized', 'customized')}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Content */}
       {loading ? (
         <div className="flex justify-center py-16">
           <Loader2 className="w-8 h-8 animate-spin text-[#2da44e]" />
@@ -90,67 +167,49 @@ export const ReposTab = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {repos.map((repo) => (
-            <a
-              key={repo.id}
-              href={repo.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-xl p-5 hover:border-[#2da44e]/50 hover:shadow-md transition-all group block"
-            >
-              <div className="flex items-start justify-between gap-3 mb-2">
-                <div className="flex items-center gap-2 min-w-0">
-                  {repo.isPrivate ? (
-                    <Lock className="w-4 h-4 text-gray-400 shrink-0" />
-                  ) : (
-                    <Globe className="w-4 h-4 text-gray-400 shrink-0" />
-                  )}
-                  <span className="font-semibold text-gray-900 dark:text-white group-hover:text-[#2da44e] transition-colors truncate">
-                    {repo.name}
-                  </span>
-                </div>
-                <ExternalLink className="w-4 h-4 text-gray-400 shrink-0 group-hover:text-[#2da44e]" />
-              </div>
+          {repos.map((repo) => {
+            const project = convertedMap.get(repo.id);
+            const isConverted = !!project;
 
-              {repo.description && (
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">{repo.description}</p>
-              )}
-
-              <div className="flex items-center gap-4 text-xs text-gray-500">
-                {repo.language && (
-                  <span className="flex items-center gap-1">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#2da44e]"></span>
-                    {repo.language}
-                  </span>
-                )}
-                {repo.stars > 0 && (
-                  <span className="flex items-center gap-1">
-                    <Star className="w-3.5 h-3.5" /> {repo.stars}
-                  </span>
-                )}
-                {repo.forks > 0 && (
-                  <span className="flex items-center gap-1">
-                    <GitFork className="w-3.5 h-3.5" /> {repo.forks}
-                  </span>
-                )}
-                {repo.isPrivate && (
-                  <span className="ml-auto bg-gray-100 dark:bg-gray-800 px-2 py-0.5 rounded-full text-gray-500 dark:text-gray-400">
-                    Private
-                  </span>
-                )}
-              </div>
-
-              {repo.topics.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-3">
-                  {repo.topics.slice(0, 4).map((topic: string) => (
-                    <span key={topic} className="text-xs bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full">
-                      {topic}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </a>
-          ))}
+            return (
+              <ProjectCard
+                key={repo.id}
+                title={isConverted ? project.title : repo.name}
+                description={isConverted ? project.description : repo.description}
+                url={repo.url}
+                image={isConverted ? project.image : undefined}
+                role={isConverted ? project.role : undefined}
+                language={repo.language}
+                stars={repo.stars}
+                technologies={isConverted ? project.technologies : repo.topics}
+                source={isConverted ? 'github-custom' : 'github'}
+                isPinned={isConverted ? project.isPinned : false}
+                isVisible={isConverted ? project.isVisible : true}
+                gitHubRepoName={repo.fullName}
+                mode="dashboard"
+                onEdit={isConverted ? () => {/* TODO: open edit modal */} : undefined}
+                onConvert={!isConverted ? () => handleConvert(repo) : undefined}
+                onTogglePin={
+                  isConverted
+                    ? () => handleTogglePin(project.id, {
+                        isPinned: project.isPinned,
+                        isVisible: project.isVisible,
+                        displayOrder: project.displayOrder,
+                      })
+                    : undefined
+                }
+                onToggleVisibility={
+                  isConverted
+                    ? () => handleToggleVisibility(project.id, {
+                        isPinned: project.isPinned,
+                        isVisible: project.isVisible,
+                        displayOrder: project.displayOrder,
+                      })
+                    : () => handleHide(repo)
+                }
+              />
+            );
+          })}
         </div>
       )}
     </div>
