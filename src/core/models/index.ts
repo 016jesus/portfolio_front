@@ -9,6 +9,14 @@ export interface Project {
   userId: string;
   userName: string;
   userName_Display: string;
+  gitHubRepoId?: number | null;
+  gitHubRepoName?: string | null;
+  role?: string | null;
+  startDate?: string | null;
+  isPinned: boolean;
+  isVisible: boolean;
+  displayOrder: number;
+  technologies: string[];
 }
 
 export interface CreateProjectDto {
@@ -18,6 +26,12 @@ export interface CreateProjectDto {
   image: string;
   userId: string;
   userName: string;
+  role?: string;
+  startDate?: string;
+  isPinned?: boolean;
+  isVisible?: boolean;
+  displayOrder?: number;
+  technologyIds?: string[];
 }
 
 export interface UpdateProjectDto {
@@ -26,6 +40,11 @@ export interface UpdateProjectDto {
   url: string;
   image: string;
   endDate?: string;
+  role?: string;
+  startDate?: string;
+  isPinned?: boolean;
+  isVisible?: boolean;
+  displayOrder?: number;
 }
 
 export interface User {
@@ -73,4 +92,48 @@ export interface GitHubRepo {
   topics: string[];
   updatedAt: string;
   createdAt: string;
+}
+
+export interface PortfolioProject {
+  id?: string | null;
+  title: string;
+  description?: string | null;
+  url?: string | null;
+  image?: string | null;
+  role?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  isPinned: boolean;
+  isVisible: boolean;
+  displayOrder: number;
+  gitHubRepoId?: number | null;
+  gitHubRepoName?: string | null;
+  source: 'manual' | 'github' | 'github-custom';
+  technologies: string[];
+  language?: string | null;
+  stars?: number | null;
+}
+
+export interface CreateProjectFromRepoDto {
+  gitHubRepoId: number;
+  gitHubRepoName: string;
+  title?: string;
+  description?: string;
+  role?: string;
+  image?: string;
+}
+
+export interface ProjectVisibilityDto {
+  isVisible: boolean;
+  isPinned: boolean;
+  displayOrder: number;
+}
+
+export interface ReorderProjectDto {
+  id: string;
+  displayOrder: number;
+}
+
+export interface HiddenRepoDto {
+  repoId: number;
 }
