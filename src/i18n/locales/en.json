@@ -27,6 +27,9 @@
         "step2": { "title": "Build your profile", "description": "Add projects, skills, bio and link your GitHub repos." },
         "step3": { "title": "Share your portfolio", "description": "Get your public URL and use it on your CV, LinkedIn or anywhere." }
       },
+      "auth": { 
+        "oauth_loading": "You're almost there..." 
+      }, 
       "why": {
         "eyebrow": "Why portfólio",
         "title": "Your work deserves to be seen",
