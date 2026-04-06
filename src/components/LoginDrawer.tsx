@@ -48,7 +48,11 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
     setLoading(true);
     try {
       const response = await login({ username, password });
-      Cookies.set('jwt_token', response.token, { expires: 7, secure: true, sameSite: 'strict' });
+      Cookies.set('jwt_token', response.token, {
+        expires: response.expiresAt ? new Date(response.expiresAt) : 7,
+        secure: true,
+        sameSite: 'strict',
+      });
       setToken(response.token, response.user);
       toast.success(t('loginDrawer.loginSuccess'));
       onClose();

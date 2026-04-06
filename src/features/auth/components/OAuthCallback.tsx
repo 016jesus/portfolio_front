@@ -45,7 +45,11 @@ export const OAuthCallback = () => {
 
     oauthLogin({ provider, code, redirectUri })
       .then((response) => {
-        Cookies.set('jwt_token', response.token, { expires: 7, secure: true, sameSite: 'strict' });
+        Cookies.set('jwt_token', response.token, {
+          expires: response.expiresAt ? new Date(response.expiresAt) : 7,
+          secure: true,
+          sameSite: 'strict',
+        });
         setToken(response.token, response.user);
         navigate(response.isNewUser ? '/setup' : '/admin/dashboard', { replace: true });
       })

@@ -7,13 +7,12 @@ const apiClient = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: true, 
+  withCredentials: true,
 });
 
 // Interceptor de Petición: Inyectar el Token desde la cookie
 apiClient.interceptors.request.use(
   (config) => {
-    // Si el backend no usa HttpOnly y tú manejas la cookie en el frontend:
     const token = Cookies.get('jwt_token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -23,15 +22,20 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Flag para evitar múltiples redirects simultáneos
+let isLoggingOut = false;
+
 // Interceptor de Respuesta: Manejar expiración de Token (401)
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
-      // Limpiar estado y redirigir al login
+    if (error.response?.status === 401 && !error.config?._skipAuthInterceptor) {
       Cookies.remove('jwt_token');
       useAuthStore.getState().logout();
-      window.location.href = '/login'; 
+      if (!isLoggingOut) {
+        isLoggingOut = true;
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
