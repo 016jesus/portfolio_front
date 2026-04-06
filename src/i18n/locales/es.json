@@ -54,6 +54,9 @@
           "description": "Obtén tu URL pública y úsala en tu CV, LinkedIn o donde quieras."
         }
       },
+      "auth": { 
+        "oauth_loading": "Solo un poco más..." 
+      }, 
       "why": {
         "eyebrow": "Por qué portfólio",
         "title": "Tu trabajo merece ser visto",
