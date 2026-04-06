@@ -57,7 +57,7 @@ export const OAuthCallback = () => {
       <div className="flex flex-col items-center space-y-4">
         <div className="h-12 w-12 animate-spin rounded-full border-4 border-[#2da44e] border-t-transparent"></div>
         <p className="text-lg font-medium text-gray-700 dark:text-gray-200">
-          Autenticando de forma segura...
+          You're almost there...
         </p>
       </div>
     </div>
