@@ -42,7 +42,9 @@ export const oauthLogin = async (payload: OAuthLoginPayload): Promise<AuthRespon
 };
 
 export const verifySession = async (): Promise<User> => {
-  const response = await apiClient.get<User>('/api/Auth/me');
+  const response = await apiClient.get<User>('/api/Auth/me', {
+    _skipAuthInterceptor: true,
+  });
   return response.data;
 };
 

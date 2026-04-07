@@ -51,7 +51,11 @@ export const Signup = () => {
     setLoading(true);
     try {
       const response = await register(form);
-      Cookies.set('jwt_token', response.token, { expires: 7, secure: true, sameSite: 'strict' });
+      Cookies.set('jwt_token', response.token, {
+        expires: response.expiresAt ? new Date(response.expiresAt) : 7,
+        secure: true,
+        sameSite: 'strict',
+      });
       setToken(response.token, response.user);
       toast.success(t('signup.successMessage'));
       navigate('/admin/dashboard');
