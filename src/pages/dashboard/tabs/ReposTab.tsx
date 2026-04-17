@@ -1,9 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Github, Loader2, ExternalLink } from 'lucide-react';
 import { useAuthStore } from '../../../store/useAuthStore';
 import { usePortfolioStore } from '../../../store/usePortfolioStore';
 import { ProjectCard } from '../../../components/ProjectCard';
+import { ConfirmDialog } from '../../../components/ConfirmDialog';
 import { toast } from '../../../components/Toast';
 import type { GitHubRepo } from '../../../core/models';
 
@@ -40,11 +41,17 @@ export const ReposTab = () => {
 
   const customizedCount = repos.filter((r) => convertedMap.has(r.id)).length;
 
-  const handleConvert = async (repo: GitHubRepo) => {
-    const confirmed = window.confirm(
-      t('repos.confirmConvert', `Convert "${repo.name}" into a project? You'll be able to customize it afterwards.`),
-    );
-    if (!confirmed) return;
+  const [confirmRepo, setConfirmRepo] = useState<GitHubRepo | null>(null);
+  const [converting, setConverting] = useState(false);
+
+  const handleConvert = (repo: GitHubRepo) => {
+    setConfirmRepo(repo);
+  };
+
+  const doConvert = async () => {
+    if (!confirmRepo) return;
+    const repo = confirmRepo;
+    setConverting(true);
     try {
       await convertRepo({
         gitHubRepoId: repo.id,
@@ -53,8 +60,17 @@ export const ReposTab = () => {
         description: repo.description ?? undefined,
       });
       toast.success(t('repos.convertSuccess', 'Repo converted to project'));
-    } catch {
-      toast.error(t('repos.convertError', 'Failed to convert repo'));
+      setConfirmRepo(null);
+    } catch (err: any) {
+      if (err?.response?.status === 409) {
+        toast.success(t('repos.alreadyConverted', 'Este repo ya es un proyecto. Actualizando lista...'));
+        if (user) await fetchProjects(user.username, user.tenantId);
+        setConfirmRepo(null);
+      } else {
+        toast.error(t('repos.convertError', 'Failed to convert repo'));
+      }
+    } finally {
+      setConverting(false);
     }
   };
 
@@ -212,6 +228,20 @@ export const ReposTab = () => {
           })}
         </div>
       )}
+
+      <ConfirmDialog
+        open={!!confirmRepo}
+        title={t('repos.confirmConvertTitle', 'Convertir a proyecto')}
+        message={t('repos.confirmConvert', {
+          name: confirmRepo?.name ?? '',
+          defaultValue: `¿Convertir "${confirmRepo?.name ?? ''}" en un proyecto? Podrás personalizarlo después.`,
+        })}
+        confirmLabel={t('repos.convert', 'Convertir')}
+        cancelLabel={t('common.cancel', 'Cancelar')}
+        loading={converting}
+        onConfirm={doConvert}
+        onCancel={() => !converting && setConfirmRepo(null)}
+      />
     </div>
   );
 };

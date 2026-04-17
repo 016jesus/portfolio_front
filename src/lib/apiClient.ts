@@ -10,12 +10,16 @@ const apiClient = axios.create({
   withCredentials: true,
 });
 
-// Interceptor de Petición: Inyectar el Token desde la cookie
+// Interceptor de Petición: Inyectar el Token desde la cookie y el tenant header
 apiClient.interceptors.request.use(
   (config) => {
     const token = Cookies.get('jwt_token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+    const tenantId = useAuthStore.getState().user?.tenantId;
+    if (tenantId && config.headers) {
+      config.headers['X-Tenant-Id'] = tenantId;
     }
     return config;
   },

@@ -6,7 +6,7 @@ import type { Project, CreateProjectDto, UpdateProjectDto } from '../../../core/
  */
 export const getProjectsByUsername = async (username: string, tenantID: string): Promise<Project[]> => {
   try {
-    const response = await apiClient.get<Project[]>(`/api/Projects?username=${username}&tenantID=${tenantID}`);
+    const response = await apiClient.get<Project[]>(`/api/Projects?username=${encodeURIComponent(username)}&tenantId=${encodeURIComponent(tenantID)}`);
     return response.data || [];
   } catch (error: any) {
     // Si es un 404, retornar array vacío en lugar de error (el usuario existe pero no tiene proyectos)
