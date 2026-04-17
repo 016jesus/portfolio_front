@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { PortfolioProject, Project, GitHubRepo, CreateProjectFromRepoDto, ProjectVisibilityDto, ReorderProjectDto } from '../core/models';
+import type { PortfolioProject, Project, GitHubRepo, Skill, CreateProjectFromRepoDto, ProjectVisibilityDto, ReorderProjectDto } from '../core/models';
 import * as portfolioService from '../features/portfolio/services/portfolioService';
 import { getMyRepos } from '../features/github/services/githubService';
 import { getProjectsByUsername } from '../features/projects/services/projectService';
@@ -8,6 +8,7 @@ interface PortfolioState {
   projects: Project[];
   githubRepos: GitHubRepo[];
   publicPortfolio: PortfolioProject[];
+  publicSkills: Skill[];
   loading: boolean;
   error: string | null;
 
@@ -15,6 +16,7 @@ interface PortfolioState {
   fetchProjects: (username: string, tenantId: string) => Promise<void>;
   fetchGitHubRepos: () => Promise<void>;
   fetchPublicPortfolio: (username: string) => Promise<void>;
+  fetchPublicSkills: (username: string) => Promise<void>;
   convertRepo: (data: CreateProjectFromRepoDto) => Promise<Project>;
   updateVisibility: (id: string, data: ProjectVisibilityDto) => Promise<void>;
   reorderProjects: (items: ReorderProjectDto[]) => Promise<void>;
@@ -27,6 +29,7 @@ export const usePortfolioStore = create<PortfolioState>()((set, get) => ({
   projects: [],
   githubRepos: [],
   publicPortfolio: [],
+  publicSkills: [],
   loading: false,
   error: null,
 
@@ -57,6 +60,15 @@ export const usePortfolioStore = create<PortfolioState>()((set, get) => ({
       set({ publicPortfolio: portfolio, loading: false });
     } catch (error: any) {
       set({ error: error.message, loading: false });
+    }
+  },
+
+  fetchPublicSkills: async (username) => {
+    try {
+      const skills = await portfolioService.getPublicSkills(username);
+      set({ publicSkills: skills });
+    } catch {
+      set({ publicSkills: [] });
     }
   },
 
@@ -98,5 +110,5 @@ export const usePortfolioStore = create<PortfolioState>()((set, get) => ({
     await portfolioService.unhideGitHubRepo(repoId);
   },
 
-  reset: () => set({ projects: [], githubRepos: [], publicPortfolio: [], loading: false, error: null }),
+  reset: () => set({ projects: [], githubRepos: [], publicPortfolio: [], publicSkills: [], loading: false, error: null }),
 }));

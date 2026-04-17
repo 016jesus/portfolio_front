@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Github,
@@ -9,6 +10,9 @@ import {
   ExternalLink,
   Star,
   ArrowRightCircle,
+  ChevronDown,
+  Calendar,
+  Link as LinkIcon,
 } from 'lucide-react';
 
 interface ProjectCardProps {
@@ -25,6 +29,8 @@ interface ProjectCardProps {
   isPinned?: boolean;
   isVisible?: boolean;
   gitHubRepoName?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
 
   // Mode
   mode?: 'dashboard' | 'public';
@@ -48,7 +54,9 @@ export const ProjectCard = ({
   source,
   isPinned = false,
   isVisible = true,
-  gitHubRepoName: _gitHubRepoName,
+  gitHubRepoName,
+  startDate,
+  endDate,
   mode = 'public',
   onEdit,
   onTogglePin,
@@ -56,8 +64,12 @@ export const ProjectCard = ({
   onConvert,
 }: ProjectCardProps) => {
   const { t } = useTranslation();
+  const [expanded, setExpanded] = useState(false);
 
   const isDashboard = mode === 'dashboard';
+  const isPublic = mode === 'public';
+
+  const hasDetails = isPublic && (url || gitHubRepoName || startDate || endDate || role || (description && description.length > 100));
 
   const pinnedStyles = isPinned
     ? 'border-[#2da44e]/30 bg-green-50/5'
@@ -66,6 +78,11 @@ export const ProjectCard = ({
   const hiddenStyles = !isVisible ? 'opacity-60' : '';
 
   const SourceIcon = source === 'manual' ? FolderOpen : Github;
+
+  const formatDate = (d: string) => {
+    try { return new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short' }); }
+    catch { return d; }
+  };
 
   return (
     <div
@@ -92,7 +109,7 @@ export const ProjectCard = ({
               {t('repos.customized', 'Customized')}
             </span>
           )}
-          {mode === 'public' && url && (
+          {isPublic && url && (
             <a
               href={url}
               target="_blank"
@@ -106,7 +123,7 @@ export const ProjectCard = ({
 
         {/* Description */}
         {description && (
-          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-2">
+          <p className={`text-sm text-gray-600 dark:text-gray-400 mb-2 ${!expanded ? 'line-clamp-2' : ''}`}>
             {description}
           </p>
         )}
@@ -121,7 +138,7 @@ export const ProjectCard = ({
         {/* Technologies */}
         {technologies && technologies.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-3">
-            {technologies.slice(0, 6).map((tech) => (
+            {(expanded ? technologies : technologies.slice(0, 6)).map((tech) => (
               <span
                 key={tech}
                 className="text-xs bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 px-2 py-0.5 rounded-full"
@@ -129,6 +146,9 @@ export const ProjectCard = ({
                 {tech}
               </span>
             ))}
+            {!expanded && technologies.length > 6 && (
+              <span className="text-xs text-gray-400 px-1">+{technologies.length - 6}</span>
+            )}
           </div>
         )}
 
@@ -147,6 +167,57 @@ export const ProjectCard = ({
               </span>
             )}
           </div>
+        )}
+
+        {/* Expanded details (public mode) */}
+        {isPublic && expanded && (
+          <div className="mt-3 pt-3 border-t border-gray-100 dark:border-gray-800 space-y-2">
+            {(startDate || endDate) && (
+              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                <Calendar className="w-3.5 h-3.5 shrink-0" />
+                <span>
+                  {startDate ? formatDate(startDate) : '—'}
+                  {' → '}
+                  {endDate ? formatDate(endDate) : t('publicProfile.present', 'Presente')}
+                </span>
+              </div>
+            )}
+            {url && (
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                <LinkIcon className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">{url.replace(/^https?:\/\//, '')}</span>
+              </a>
+            )}
+            {gitHubRepoName && (
+              <a
+                href={`https://github.com/${gitHubRepoName}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 hover:text-[#2da44e] transition-colors"
+              >
+                <Github className="w-3.5 h-3.5 shrink-0" />
+                <span className="truncate">{gitHubRepoName}</span>
+                <ExternalLink className="w-3 h-3 shrink-0" />
+              </a>
+            )}
+          </div>
+        )}
+
+        {/* Expand/collapse toggle (public mode) */}
+        {hasDetails && (
+          <button
+            type="button"
+            onClick={() => setExpanded(!expanded)}
+            className="flex items-center justify-center gap-1 mt-3 pt-2 text-xs font-medium text-gray-400 hover:text-[#2da44e] transition-colors w-full"
+          >
+            <span>{expanded ? t('publicProfile.showLess', 'Ver menos') : t('publicProfile.showMore', 'Ver más')}</span>
+            <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+          </button>
         )}
 
         {/* Dashboard action buttons */}

@@ -1,8 +1,13 @@
 import apiClient from '../../../lib/apiClient';
-import type { PortfolioProject, CreateProjectFromRepoDto, ProjectVisibilityDto, ReorderProjectDto, Project } from '../../../core/models';
+import type { PortfolioProject, CreateProjectFromRepoDto, ProjectVisibilityDto, ReorderProjectDto, Project, Skill } from '../../../core/models';
 
 export const getPublicPortfolio = async (username: string): Promise<PortfolioProject[]> => {
   const response = await apiClient.get<PortfolioProject[]>(`/api/Users/public/${username}/portfolio`);
+  return response.data;
+};
+
+export const getPublicSkills = async (username: string): Promise<Skill[]> => {
+  const response = await apiClient.get<Skill[]>(`/api/Users/public/${username}/skills`);
   return response.data;
 };
 
