@@ -19,6 +19,7 @@ import {
 import { useAuthStore } from '../../../store/useAuthStore';
 import { usePortfolioStore } from '../../../store/usePortfolioStore';
 import { toast } from '../../../components/Toast';
+import { ConfirmDialog } from '../../../components/ConfirmDialog';
 import type { Project, CreateProjectDto, UpdateProjectDto } from '../../../core/models';
 
 /* ------------------------------------------------------------------ */
@@ -198,6 +199,7 @@ export const ProjectsTab = () => {
   const [editing, setEditing] = useState<Project | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [deleting, setDeleting] = useState<string | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
 
   // DnD sensors
   const sensors = useSensors(
@@ -278,14 +280,19 @@ export const ProjectsTab = () => {
     }
   };
 
-  const handleDelete = async (id: string) => {
-    if (!confirm(t('projects.confirmDelete'))) return;
-    if (!user) return;
+  const handleDelete = (id: string) => {
+    setConfirmDeleteId(id);
+  };
+
+  const doDelete = async () => {
+    const id = confirmDeleteId;
+    if (!id || !user) return;
     setDeleting(id);
     try {
       await deleteProject(id);
       toast.success(t('projects.deleted'));
       await fetchProjects(user.username, user.tenantId);
+      setConfirmDeleteId(null);
     } catch {
       toast.error(t('projects.errorDelete'));
     } finally {
@@ -477,6 +484,18 @@ export const ProjectsTab = () => {
           </SortableContext>
         </DndContext>
       )}
+
+      <ConfirmDialog
+        open={!!confirmDeleteId}
+        variant="danger"
+        title={t('projects.confirmDeleteTitle', 'Eliminar proyecto')}
+        message={t('projects.confirmDelete', '¿Seguro que deseas eliminar este proyecto? Esta acción no se puede deshacer.')}
+        confirmLabel={t('projects.delete', 'Eliminar')}
+        cancelLabel={t('common.cancel', 'Cancelar')}
+        loading={deleting === confirmDeleteId && deleting !== null}
+        onConfirm={doDelete}
+        onCancel={() => deleting === null && setConfirmDeleteId(null)}
+      />
     </div>
   );
 };
