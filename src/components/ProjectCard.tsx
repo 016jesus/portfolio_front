@@ -59,17 +59,14 @@ export const ProjectCard = ({
 
   const isDashboard = mode === 'dashboard';
 
-  const pinnedStyles = isPinned
-    ? 'border-[#2da44e]/30 bg-green-50/5'
-    : 'border-gray-200 dark:border-gray-800';
-
+  const pinnedStyles = isPinned ? 'ring-1 ring-[#2da44e]/40' : '';
   const hiddenStyles = !isVisible ? 'opacity-60' : '';
 
   const SourceIcon = source === 'manual' ? FolderOpen : Github;
 
   return (
     <div
-      className={`bg-white dark:bg-[#161b22] border rounded-xl hover:border-[#2da44e]/40 transition-all group flex flex-col ${pinnedStyles} ${hiddenStyles}`}
+      className={`glass-surface rounded-xl hover:border-[#2da44e]/50 transition-all group flex flex-col ${pinnedStyles} ${hiddenStyles}`}
     >
       {/* Image */}
       {image && (

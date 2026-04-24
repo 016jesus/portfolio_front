@@ -68,17 +68,17 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
   return (
     <>
       <div
-        className={`fixed inset-0 bg-black z-40 transition-opacity duration-300 ${
-          isOpen ? 'bg-opacity-20 opacity-40' : 'bg-opacity-0 opacity-0 pointer-events-none'
+        className={`glass-overlay fixed inset-0 z-40 transition-opacity duration-300 ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         }`}
         onClick={onClose}
       />
 
-      <div className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white dark:bg-[#0d1117] shadow-2xl z-50 transform transition-all duration-500 ease-in-out ${
+      <div className={`glass-modal fixed top-0 right-0 h-full w-full md:w-96 z-50 transform transition-all duration-500 ease-in-out ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+          <div className="flex items-center justify-between p-6 border-b border-white/40 dark:border-white/10">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
               {t('loginDrawer.title')}
             </h2>
@@ -99,7 +99,7 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
               {/* Google */}
               <button
                 onClick={handleGoogle}
-                className="w-full flex items-center justify-center gap-3 bg-white dark:bg-[#161b22] border-2 border-gray-300 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-600 text-gray-900 dark:text-white rounded-lg py-3 px-4 font-semibold transition-all hover:shadow-md"
+                className="w-full flex items-center justify-center gap-3 bg-white/80 dark:bg-slate-800/60 border-2 border-gray-300/60 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 text-gray-900 dark:text-white rounded-lg py-3 px-4 font-semibold transition-all hover:shadow-md"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24">
                   <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -126,7 +126,7 @@ export const LoginDrawer = ({ isOpen, onClose }: LoginDrawerProps) => {
                   <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
                 </div>
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white dark:bg-[#0d1117] text-gray-500 dark:text-gray-400">
+                  <span className="px-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm text-gray-500 dark:text-gray-400 rounded">
                     {t('loginDrawer.or')}
                   </span>
                 </div>

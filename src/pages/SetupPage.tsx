@@ -52,7 +52,7 @@ export const SetupPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-[#0d1117] flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg">
         {/* Header */}
         <div className="text-center mb-8">
@@ -80,14 +80,14 @@ export const SetupPage = () => {
 
         <form
           onSubmit={handleSubmit}
-          className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-2xl p-8 space-y-5 shadow-sm"
+          className="glass-modal rounded-2xl p-8 space-y-5"
         >
           {/* Username (read-only) */}
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1.5">
               {t('setup.username')}
             </label>
-            <div className="flex items-center gap-2 bg-gray-50 dark:bg-[#0d1117] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5">
+            <div className="flex items-center gap-2 bg-white/60 dark:bg-slate-950/50 border border-gray-200/70 dark:border-white/10 rounded-lg px-3 py-2.5">
               <User className="w-4 h-4 text-gray-400 shrink-0" />
               <span className="text-gray-500 dark:text-gray-400 text-sm select-none">
                 {form.username}
@@ -109,7 +109,7 @@ export const SetupPage = () => {
               value={form.name}
               onChange={handleChange}
               placeholder={t('setup.displayNamePlaceholder')}
-              className="w-full bg-gray-50 dark:bg-[#0d1117] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e]"
+              className="w-full bg-white/60 dark:bg-slate-950/50 border border-gray-200/70 dark:border-white/10 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e]"
             />
           </div>
 
@@ -128,7 +128,7 @@ export const SetupPage = () => {
               value={form.bio}
               onChange={handleChange}
               placeholder={t('setup.bioPlaceholder')}
-              className="w-full bg-gray-50 dark:bg-[#0d1117] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e] resize-none"
+              className="w-full bg-white/60 dark:bg-slate-950/50 border border-gray-200/70 dark:border-white/10 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e] resize-none"
             />
           </div>
 
@@ -147,7 +147,7 @@ export const SetupPage = () => {
               value={form.location}
               onChange={handleChange}
               placeholder={t('setup.locationPlaceholder')}
-              className="w-full bg-gray-50 dark:bg-[#0d1117] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e]"
+              className="w-full bg-white/60 dark:bg-slate-950/50 border border-gray-200/70 dark:border-white/10 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e]"
             />
           </div>
 
@@ -166,7 +166,7 @@ export const SetupPage = () => {
               value={form.website}
               onChange={handleChange}
               placeholder="https://tu-web.com"
-              className="w-full bg-gray-50 dark:bg-[#0d1117] border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e]"
+              className="w-full bg-white/60 dark:bg-slate-950/50 border border-gray-200/70 dark:border-white/10 rounded-lg px-3 py-2.5 text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2da44e]/40 focus:border-[#2da44e]"
             />
           </div>
 

@@ -33,7 +33,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-20 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+      <header className="glass-nav sticky top-0 z-20 border-b border-slate-200/60 dark:border-slate-800/60">
         <div className="max-w-7xl mx-auto px-4 md:px-8 h-16 flex items-center justify-between">
 
           {/* Logo */}
@@ -62,7 +62,7 @@ export const Navbar = () => {
                 <Globe className="w-3.5 h-3.5" />
                 {i18n.language}
               </button>
-              <div className="absolute right-0 top-full mt-1 w-32 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
+              <div className="glass-surface absolute right-0 top-full mt-1 w-32 rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all">
                 <button onClick={() => changeLanguage('es')} className="block w-full text-left px-4 py-2.5 text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
                   🇪🇸 Español
                 </button>
@@ -95,7 +95,7 @@ export const Navbar = () => {
                 {userMenuOpen && (
                   <>
                     <div className="fixed inset-0 z-10" onClick={() => setUserMenuOpen(false)} />
-                    <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl z-20 overflow-hidden">
+                    <div className="glass-surface absolute right-0 mt-2 w-56 rounded-2xl z-20 overflow-hidden">
                       <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800">
                         <p className="font-semibold text-slate-900 dark:text-white truncate">{displayName}</p>
                         <p className="text-xs text-slate-500 truncate">@{user.username}</p>
@@ -151,7 +151,7 @@ export const Navbar = () => {
 
         {/* Mobile menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 px-4 py-3 space-y-1">
+          <div className="glass-surface md:hidden border-t border-slate-200/60 dark:border-slate-800/60 px-4 py-3 space-y-1">
             <a href="#features" onClick={() => setMobileMenuOpen(false)}
               className="block px-3 py-2.5 text-sm font-medium rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
               {t('nav.features')}

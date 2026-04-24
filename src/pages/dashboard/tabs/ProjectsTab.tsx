@@ -45,24 +45,30 @@ const SortableProjectCard = ({
   deleting,
   t,
 }: SortableProjectCardProps) => {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: p.id });
-  const style = { transform: CSS.Transform.toString(transform), transition };
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: p.id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    zIndex: isDragging ? 50 : undefined,
+  };
 
   const isGitHub = !!p.gitHubRepoId;
   const SourceIcon = isGitHub ? Github : FolderOpen;
   const source: 'github' | 'manual' = isGitHub ? 'github' : 'manual';
 
-  const pinnedBorder = p.isPinned
-    ? 'border-[#2da44e]/30 bg-green-50/5'
-    : 'border-gray-200 dark:border-gray-800';
+  const pinnedRing = p.isPinned ? 'ring-1 ring-[#2da44e]/40' : '';
   const hiddenOpacity = !p.isVisible ? 'opacity-60' : '';
+  // While dragging, drop backdrop-filter to avoid flicker under transform.
+  const draggingSolid = isDragging
+    ? 'bg-white dark:bg-slate-900 shadow-2xl'
+    : 'glass-surface';
 
   return (
     <div
       ref={setNodeRef}
       style={style}
       {...attributes}
-      className={`bg-white dark:bg-[#161b22] border rounded-xl hover:border-[#2da44e]/40 transition-all flex ${pinnedBorder} ${hiddenOpacity}`}
+      className={`${draggingSolid} rounded-xl hover:border-[#2da44e]/50 transition-shadow flex ${pinnedRing} ${hiddenOpacity}`}
     >
       {/* Drag handle */}
       <div
@@ -353,9 +359,9 @@ export const ProjectsTab = () => {
 
       {/* Modal form */}
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white dark:bg-[#161b22] rounded-2xl shadow-2xl w-full max-w-lg border border-gray-200 dark:border-gray-800">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+        <div className="glass-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="glass-modal rounded-2xl w-full max-w-lg">
+            <div className="flex items-center justify-between p-6 border-b border-white/40 dark:border-white/10">
               <h3 className="text-xl font-bold dark:text-white">
                 {editing ? t('projects.editProject') : t('projects.newProject')}
               </h3>
@@ -370,7 +376,7 @@ export const ProjectsTab = () => {
                 <input
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
                   placeholder={t('projects.form.titlePlaceholder')}
                 />
               </div>
@@ -381,7 +387,7 @@ export const ProjectsTab = () => {
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white resize-none"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white resize-none"
                   placeholder={t('projects.form.descriptionPlaceholder')}
                 />
               </div>
@@ -392,7 +398,7 @@ export const ProjectsTab = () => {
                   type="url"
                   value={form.url}
                   onChange={(e) => setForm({ ...form, url: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
                   placeholder="https://..."
                 />
               </div>
@@ -403,7 +409,7 @@ export const ProjectsTab = () => {
                   type="url"
                   value={form.image}
                   onChange={(e) => setForm({ ...form, image: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
                   placeholder="https://..."
                 />
               </div>
@@ -413,7 +419,7 @@ export const ProjectsTab = () => {
                 <input
                   value={form.role}
                   onChange={(e) => setForm({ ...form, role: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
                   placeholder={t('projects.form.rolePlaceholder', 'Creator, Contributor, Lead...')}
                 />
               </div>
@@ -424,7 +430,7 @@ export const ProjectsTab = () => {
                   type="date"
                   value={form.startDate}
                   onChange={(e) => setForm({ ...form, startDate: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
                 />
               </div>
               {/* Buttons */}
@@ -456,7 +462,7 @@ export const ProjectsTab = () => {
           <Loader2 className="w-8 h-8 animate-spin text-[#2da44e]" />
         </div>
       ) : sortedProjects.length === 0 ? (
-        <div className="bg-white dark:bg-[#161b22] border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl p-12 text-center">
+        <div className="glass-surface border-dashed rounded-2xl p-12 text-center">
           <FolderOpen className="w-12 h-12 text-gray-400 mx-auto mb-3" />
           <p className="font-semibold text-gray-700 dark:text-gray-300">{t('projects.empty')}</p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('projects.emptyHint')}</p>

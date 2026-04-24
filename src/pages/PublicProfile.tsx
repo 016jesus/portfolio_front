@@ -53,14 +53,14 @@ export const PublicProfile = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
+    <div className="min-h-screen">
       {/* Hero Header con foto de perfil */}
       <div className="bg-gradient-to-br from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 h-48"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Perfil del usuario */}
         <div className="relative -mt-20 mb-12">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 md:p-8">
+          <div className="glass-surface rounded-2xl shadow-xl p-6 md:p-8">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
               {/* Avatar */}
               <div className="relative">
@@ -139,7 +139,7 @@ export const PublicProfile = () => {
           </div>
 
           {publicPortfolio.length === 0 ? (
-            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm p-12 text-center">
+            <div className="glass-surface rounded-2xl shadow-sm p-12 text-center">
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full mb-4">
                 <FolderOpen className="w-8 h-8 text-gray-400" />
               </div>

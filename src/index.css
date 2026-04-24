@@ -2,10 +2,150 @@
 
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Glassmorphism tokens */
+  --glass-blur: 20px;
+  --glass-blur-mobile: 10px;
+  --glass-saturation: 160%;
 }
 
 @layer base {
   body {
-    @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased;
+    @apply text-gray-900 dark:text-gray-100 antialiased;
+    background-color: #f3f6fb;
+  }
+  html.dark body {
+    background-color: #070a13;
+  }
+}
+
+/* -------------------------------------------------------------------
+   Glass utility classes
+   Single source of truth for frosted-glass surfaces.
+   Each class auto-degrades on mobile (more opaque, less blur) and
+   falls back gracefully on browsers without backdrop-filter.
+   ------------------------------------------------------------------- */
+@layer components {
+
+  /* Content cards, sidebar, generic panels */
+  .glass-surface {
+    background-color: rgb(255 255 255 / 0.62);
+    border: 1px solid rgb(255 255 255 / 0.45);
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+    box-shadow: 0 8px 32px -12px rgb(15 23 42 / 0.12);
+  }
+  html.dark .glass-surface {
+    background-color: rgb(15 23 42 / 0.55);
+    border-color: rgb(255 255 255 / 0.08);
+    box-shadow: 0 8px 32px -12px rgb(0 0 0 / 0.4);
+  }
+
+  /* Sticky top navbar: more opaque for link legibility */
+  .glass-nav {
+    background-color: rgb(255 255 255 / 0.72);
+    border-color: rgb(255 255 255 / 0.35);
+    backdrop-filter: blur(18px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(18px) saturate(var(--glass-saturation));
+  }
+  html.dark .glass-nav {
+    background-color: rgb(2 6 23 / 0.68);
+    border-color: rgb(255 255 255 / 0.06);
+  }
+
+  /* Dialogs / drawers: more blur, more opacity */
+  .glass-modal {
+    background-color: rgb(255 255 255 / 0.78);
+    border: 1px solid rgb(255 255 255 / 0.55);
+    backdrop-filter: blur(28px) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(28px) saturate(var(--glass-saturation));
+    box-shadow: 0 24px 60px -20px rgb(15 23 42 / 0.35);
+  }
+  html.dark .glass-modal {
+    background-color: rgb(15 23 42 / 0.65);
+    border-color: rgb(255 255 255 / 0.1);
+    box-shadow: 0 24px 60px -20px rgb(0 0 0 / 0.7);
+  }
+
+  /* Backdrop behind modals / drawers */
+  .glass-overlay {
+    background-color: rgb(15 23 42 / 0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  /* Reduced-motion & mobile tweaks live inside each class below */
+  @media (max-width: 767px) {
+    .glass-surface {
+      background-color: rgb(255 255 255 / 0.86);
+      backdrop-filter: blur(var(--glass-blur-mobile)) saturate(140%);
+      -webkit-backdrop-filter: blur(var(--glass-blur-mobile)) saturate(140%);
+    }
+    html.dark .glass-surface {
+      background-color: rgb(15 23 42 / 0.78);
+    }
+    .glass-nav {
+      background-color: rgb(255 255 255 / 0.9);
+      backdrop-filter: blur(12px) saturate(140%);
+      -webkit-backdrop-filter: blur(12px) saturate(140%);
+    }
+    html.dark .glass-nav {
+      background-color: rgb(2 6 23 / 0.85);
+    }
+    .glass-modal {
+      background-color: rgb(255 255 255 / 0.92);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+    }
+    html.dark .glass-modal {
+      background-color: rgb(15 23 42 / 0.82);
+    }
+    .glass-overlay {
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+  }
+
+  /* Fallback: browsers without backdrop-filter get fully opaque panels
+     (readability > aesthetic). */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-surface { background-color: rgb(255 255 255 / 0.98); }
+    html.dark .glass-surface { background-color: rgb(15 23 42 / 0.98); }
+    .glass-nav { background-color: rgb(255 255 255 / 0.98); }
+    html.dark .glass-nav { background-color: rgb(2 6 23 / 0.98); }
+    .glass-modal { background-color: rgb(255 255 255 / 0.98); }
+    html.dark .glass-modal { background-color: rgb(15 23 42 / 0.98); }
+    .glass-overlay { background-color: rgb(15 23 42 / 0.75); }
+  }
+}
+
+/* -------------------------------------------------------------------
+   Animated orbs for the global background
+   ------------------------------------------------------------------- */
+@keyframes orb-float-a {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(3vw, -4vh, 0) scale(1.08); }
+  100% { transform: translate3d(-2vw, 3vh, 0) scale(0.96); }
+}
+@keyframes orb-float-b {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-4vw, 3vh, 0) scale(1.1); }
+  100% { transform: translate3d(3vw, -2vh, 0) scale(0.95); }
+}
+@keyframes orb-float-c {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2vw, 4vh, 0) scale(0.9); }
+  100% { transform: translate3d(-3vw, -2vh, 0) scale(1.08); }
+}
+
+.orb-animate-a { animation: orb-float-a 28s ease-in-out infinite alternate; }
+.orb-animate-b { animation: orb-float-b 34s ease-in-out infinite alternate; }
+.orb-animate-c { animation: orb-float-c 40s ease-in-out infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-animate-a,
+  .orb-animate-b,
+  .orb-animate-c {
+    animation: none;
   }
 }
