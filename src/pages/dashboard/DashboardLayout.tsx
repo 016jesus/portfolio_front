@@ -50,21 +50,22 @@ export const DashboardLayout = () => {
       {/* Sidebar overlay (mobile) */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/40 z-30 md:hidden"
+          className="glass-overlay fixed inset-0 z-30 md:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={`
-        fixed top-[64px] left-0 h-[calc(100vh-64px)] w-64 bg-white dark:bg-[#0d1117] border-r border-gray-200 dark:border-gray-800
+        glass-surface
+        fixed top-[64px] left-0 h-[calc(100vh-64px)] w-64 border-r border-white/30 dark:border-white/10
         z-40 transform transition-transform duration-300
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         md:relative md:top-auto md:translate-x-0 md:z-auto
         flex flex-col
       `}>
         {/* User info */}
-        <div className="p-4 border-b border-gray-200 dark:border-gray-800">
+        <div className="p-4 border-b border-white/30 dark:border-white/10">
           <div className="flex items-center gap-3">
             {avatarUrl ? (
               <img src={avatarUrl} alt={displayName} className="w-10 h-10 rounded-full object-cover" />
@@ -110,7 +111,7 @@ export const DashboardLayout = () => {
         </nav>
 
         {/* Logout */}
-        <div className="p-3 border-t border-gray-200 dark:border-gray-800">
+        <div className="p-3 border-t border-white/30 dark:border-white/10">
           <button
             onClick={handleLogout}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/20 transition-colors"
@@ -122,9 +123,9 @@ export const DashboardLayout = () => {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 min-w-0 bg-gray-50 dark:bg-gray-950">
+      <main className="flex-1 min-w-0">
         {/* Mobile header */}
-        <div className="md:hidden flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#0d1117] border-b border-gray-200 dark:border-gray-800">
+        <div className="glass-nav md:hidden flex items-center gap-3 px-4 py-3 border-b border-white/30 dark:border-white/10">
           <button onClick={() => setSidebarOpen(true)} className="p-1">
             <Menu className="w-6 h-6" />
           </button>
@@ -168,7 +169,7 @@ const OverviewTab = ({ user, onNavigate, t }: {
         <button
           key={card.tab}
           onClick={() => onNavigate(card.tab as Tab)}
-          className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-xl p-5 text-left hover:border-[#2da44e]/50 hover:shadow-md transition-all group"
+          className="glass-surface rounded-xl p-5 text-left hover:border-[#2da44e]/50 hover:shadow-md transition-all group"
         >
           <div className="mb-3">{card.icon}</div>
           <p className="font-semibold text-gray-900 dark:text-white group-hover:text-[#2da44e] transition-colors">
@@ -182,7 +183,7 @@ const OverviewTab = ({ user, onNavigate, t }: {
     </div>
 
     {!user?.bio && !user?.avatarUrl && (
-      <div className="bg-[#2da44e]/5 border border-[#2da44e]/20 rounded-xl p-5 flex items-center gap-4">
+      <div className="glass-surface ring-1 ring-[#2da44e]/30 rounded-xl p-5 flex items-center gap-4">
         <div className="w-10 h-10 rounded-full bg-[#2da44e]/10 flex items-center justify-center">
           <User className="w-5 h-5 text-[#2da44e]" />
         </div>

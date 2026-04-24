@@ -10,7 +10,7 @@ export const Home = () => {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100">
+    <div className="text-slate-900 dark:text-slate-100">
 
       {/* ── HERO ─────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-20 pb-28 px-4">
@@ -56,9 +56,9 @@ export const Home = () => {
 
         {/* Preview card */}
         <div className="mt-20 max-w-3xl mx-auto">
-          <div className="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-2xl shadow-slate-900/10 overflow-hidden">
+          <div className="glass-surface rounded-2xl overflow-hidden">
             {/* Barra del browser */}
-            <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950">
+            <div className="flex items-center gap-2 px-4 py-3 border-b border-white/30 dark:border-white/10 bg-white/40 dark:bg-slate-950/40">
               <span className="w-3 h-3 rounded-full bg-red-400" />
               <span className="w-3 h-3 rounded-full bg-yellow-400" />
               <span className="w-3 h-3 rounded-full bg-green-400" />
@@ -92,7 +92,7 @@ export const Home = () => {
       </section>
 
       {/* ── FEATURES ─────────────────────────────────────────────── */}
-      <section id="features" className="py-24 px-4 bg-slate-50 dark:bg-slate-900/50">
+      <section id="features" className="py-24 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <p className="text-green-500 dark:text-green-400 text-sm font-semibold uppercase tracking-widest mb-3">
@@ -147,7 +147,7 @@ export const Home = () => {
             ].map((f) => (
               <div
                 key={f.title}
-                className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/5 transition-all group"
+                className="glass-surface rounded-2xl p-6 hover:border-green-500/50 hover:shadow-lg hover:shadow-green-500/10 transition-all group"
               >
                 <div className={`w-11 h-11 rounded-xl ${f.color} flex items-center justify-center mb-4 shadow-sm`}>
                   {f.icon}
@@ -209,7 +209,7 @@ export const Home = () => {
       </section>
 
       {/* ── BENEFICIOS / WHY ─────────────────────────────────────── */}
-      <section className="py-24 px-4 bg-slate-50 dark:bg-slate-900/50">
+      <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <p className="text-green-500 dark:text-green-400 text-sm font-semibold uppercase tracking-widest mb-3">
@@ -247,7 +247,7 @@ export const Home = () => {
               { value: 'OAuth', label: t('home.why.stat3') },
               { value: 'URL propia', label: t('home.why.stat4') },
             ].map((s) => (
-              <div key={s.label} className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 text-center">
+              <div key={s.label} className="glass-surface rounded-2xl p-5 text-center">
                 <p className="text-2xl font-extrabold text-green-500 dark:text-green-400 mb-1">{s.value}</p>
                 <p className="text-xs text-slate-500 dark:text-slate-400">{s.label}</p>
               </div>

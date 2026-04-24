@@ -86,9 +86,9 @@ export const SkillsTab = () => {
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
-          <div className="bg-white dark:bg-[#161b22] rounded-2xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-800">
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800">
+        <div className="glass-overlay fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="glass-modal rounded-2xl w-full max-w-md">
+            <div className="flex items-center justify-between p-6 border-b border-white/40 dark:border-white/10">
               <h3 className="text-xl font-bold dark:text-white">
                 {editing ? t('skills.editSkill') : t('skills.newSkill')}
               </h3>
@@ -102,7 +102,7 @@ export const SkillsTab = () => {
                 <input
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
                   placeholder={t('skills.form.namePlaceholder')}
                 />
               </div>
@@ -112,7 +112,7 @@ export const SkillsTab = () => {
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white resize-none"
+                  className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white resize-none"
                   placeholder={t('skills.form.descriptionPlaceholder')}
                 />
               </div>
@@ -135,7 +135,7 @@ export const SkillsTab = () => {
       {loading ? (
         <div className="flex justify-center py-12"><Loader2 className="w-8 h-8 animate-spin text-[#2da44e]" /></div>
       ) : skills.length === 0 ? (
-        <div className="bg-white dark:bg-[#161b22] border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl p-12 text-center">
+        <div className="glass-surface border-dashed rounded-2xl p-12 text-center">
           <Code2 className="w-12 h-12 text-gray-400 mx-auto mb-3" />
           <p className="font-semibold text-gray-700 dark:text-gray-300">{t('skills.empty')}</p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('skills.emptyHint')}</p>
@@ -146,7 +146,7 @@ export const SkillsTab = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {skills.map((s) => (
-            <div key={s.id} className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-xl p-5 hover:border-[#2da44e]/40 transition-colors">
+            <div key={s.id} className="glass-surface rounded-xl p-5 hover:border-[#2da44e]/50 transition-colors">
               <div className="flex items-start justify-between gap-2 mb-2">
                 <span className="inline-flex items-center gap-1.5 bg-[#2da44e]/10 text-[#2da44e] dark:text-[#3fb950] px-3 py-1 rounded-full text-sm font-semibold">
                   <Code2 className="w-3.5 h-3.5" />

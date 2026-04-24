@@ -16,7 +16,7 @@ export const ErrorPage = () => {
       : t('error.description');
 
   return (
-    <section className="max-w-xl mx-auto mt-16 p-6 border border-gray-200 dark:border-gray-800 rounded-lg shadow-sm bg-gray-50 dark:bg-[#161b22] text-center space-y-4">
+    <section className="glass-surface max-w-xl mx-auto mt-16 p-6 rounded-lg text-center space-y-4">
       <h1 className="text-3xl font-bold">{title}</h1>
       <p className="text-gray-600 dark:text-gray-400">{message}</p>
       <Link

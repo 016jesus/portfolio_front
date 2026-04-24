@@ -52,7 +52,7 @@ export const ConfirmDialog = ({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="glass-overlay fixed inset-0 z-[60] flex items-center justify-center p-4"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget && !loading) onCancel();
       }}
@@ -60,7 +60,7 @@ export const ConfirmDialog = ({
       aria-modal="true"
       aria-labelledby="confirm-dialog-title"
     >
-      <div className="bg-white dark:bg-[#161b22] rounded-2xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-800 overflow-hidden">
+      <div className="glass-modal rounded-2xl w-full max-w-md overflow-hidden">
         <div className="flex items-start justify-between p-5 pb-3">
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-full flex items-center justify-center ${iconWrap}`}>
@@ -87,7 +87,7 @@ export const ConfirmDialog = ({
           </p>
         </div>
 
-        <div className="flex items-center justify-end gap-2 px-5 py-4 bg-gray-50 dark:bg-[#0d1117] border-t border-gray-200 dark:border-gray-800">
+        <div className="flex items-center justify-end gap-2 px-5 py-4 bg-white/30 dark:bg-slate-950/30 border-t border-white/40 dark:border-white/10">
           <button
             type="button"
             onClick={onCancel}

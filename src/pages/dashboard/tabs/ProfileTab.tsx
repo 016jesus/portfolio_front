@@ -53,7 +53,7 @@ export const ProfileTab = () => {
       </div>
 
       {/* Avatar preview */}
-      <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-xl p-6 flex items-center gap-5">
+      <div className="glass-surface rounded-xl p-6 flex items-center gap-5">
         {form.avatarUrl ? (
           <img src={form.avatarUrl} alt={form.displayName || form.name} className="w-20 h-20 rounded-full object-cover border-2 border-[#2da44e]/30" />
         ) : (
@@ -73,7 +73,7 @@ export const ProfileTab = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSave} className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-xl p-6 space-y-5">
+      <form onSubmit={handleSave} className="glass-surface rounded-xl p-6 space-y-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           {/* Username */}
           <div>
@@ -83,7 +83,7 @@ export const ProfileTab = () => {
             <input
               value={form.username}
               onChange={handleChange('username')}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+              className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
             />
           </div>
 
@@ -95,7 +95,7 @@ export const ProfileTab = () => {
             <input
               value={form.name}
               onChange={handleChange('name')}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+              className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
             />
           </div>
 
@@ -107,7 +107,7 @@ export const ProfileTab = () => {
             <input
               value={form.displayName}
               onChange={handleChange('displayName')}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+              className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
               placeholder={t('profile.displayNamePlaceholder')}
             />
           </div>
@@ -132,7 +132,7 @@ export const ProfileTab = () => {
             <input
               value={form.location}
               onChange={handleChange('location')}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+              className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
               placeholder={t('profile.locationPlaceholder')}
             />
           </div>
@@ -146,7 +146,7 @@ export const ProfileTab = () => {
               type="url"
               value={form.website}
               onChange={handleChange('website')}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+              className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
               placeholder="https://..."
             />
           </div>
@@ -161,7 +161,7 @@ export const ProfileTab = () => {
             type="url"
             value={form.avatarUrl}
             onChange={handleChange('avatarUrl')}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white"
+            className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white"
             placeholder="https://..."
           />
         </div>
@@ -176,7 +176,7 @@ export const ProfileTab = () => {
             onChange={handleChange('bio')}
             rows={4}
             maxLength={500}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white resize-none"
+            className="w-full px-3 py-2 bg-white/70 dark:bg-slate-950/60 border border-gray-300/70 dark:border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:text-white resize-none"
             placeholder={t('profile.bioPlaceholder')}
           />
           <p className="text-xs text-gray-400 text-right mt-1">{form.bio.length}/500</p>

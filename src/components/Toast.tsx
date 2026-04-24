@@ -48,17 +48,17 @@ const icons: Record<ToastType, React.ReactNode> = {
 };
 
 const bg: Record<ToastType, string> = {
-  success: 'border-green-500/30 bg-green-50 dark:bg-green-950/30',
-  error: 'border-red-500/30 bg-red-50 dark:bg-red-950/30',
-  warning: 'border-yellow-500/30 bg-yellow-50 dark:bg-yellow-950/30',
-  info: 'border-blue-500/30 bg-blue-50 dark:bg-blue-950/30',
+  success: 'border-green-500/40 bg-green-50/90 dark:bg-green-950/60',
+  error: 'border-red-500/40 bg-red-50/90 dark:bg-red-950/60',
+  warning: 'border-yellow-500/40 bg-yellow-50/90 dark:bg-yellow-950/60',
+  info: 'border-blue-500/40 bg-blue-50/90 dark:bg-blue-950/60',
 };
 
 const ToastItem = ({ toast: t }: { toast: Toast }) => {
   const remove = useToastStore((s) => s.remove);
   return (
     <div
-      className={`flex items-start gap-3 p-4 rounded-lg border shadow-lg ${bg[t.type]} max-w-sm w-full animate-in slide-in-from-right-full`}
+      className={`flex items-start gap-3 p-4 rounded-lg border backdrop-blur-md shadow-lg ${bg[t.type]} max-w-sm w-full animate-in slide-in-from-right-full`}
     >
       <span className="mt-0.5 shrink-0">{icons[t.type]}</span>
       <p className="flex-1 text-sm font-medium text-gray-900 dark:text-gray-100">{t.message}</p>

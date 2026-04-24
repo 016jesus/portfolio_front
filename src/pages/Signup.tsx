@@ -78,7 +78,7 @@ export const Signup = () => {
   return (
     <div className="min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        <div className="bg-white dark:bg-[#161b22] border border-gray-200 dark:border-gray-800 rounded-2xl shadow-xl p-8">
+        <div className="glass-modal rounded-2xl p-8">
           <header className="mb-8 text-center">
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('signup.title')}</h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{t('signup.subtitle')}</p>
@@ -98,7 +98,7 @@ export const Signup = () => {
 
             <button
               onClick={handleGoogle}
-              className="w-full flex items-center justify-center gap-3 bg-white dark:bg-[#0d1117] border-2 border-gray-300 dark:border-gray-700 hover:border-gray-400 text-gray-900 dark:text-white rounded-lg py-3 px-4 font-semibold transition-all hover:shadow-md"
+              className="w-full flex items-center justify-center gap-3 bg-white/80 dark:bg-slate-800/60 border-2 border-gray-300/60 dark:border-white/10 hover:border-gray-400 dark:hover:border-white/20 text-gray-900 dark:text-white rounded-lg py-3 px-4 font-semibold transition-all hover:shadow-md"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -115,7 +115,7 @@ export const Signup = () => {
               <div className="w-full border-t border-gray-300 dark:border-gray-700"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white dark:bg-[#161b22] text-gray-500">{t('signup.or')}</span>
+              <span className="px-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-sm text-gray-500 rounded">{t('signup.or')}</span>
             </div>
           </div>
 
@@ -131,7 +131,7 @@ export const Signup = () => {
                   type="text"
                   {...field('username')}
                   autoComplete="username"
-                  className={`w-full pl-9 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white ${
+                  className={`w-full pl-9 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] bg-white/70 dark:bg-slate-950/60 dark:text-white ${
                     errors.username ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
                   }`}
                   placeholder={t('signup.usernamePlaceholder')}
@@ -151,7 +151,7 @@ export const Signup = () => {
                   type="text"
                   {...field('name')}
                   autoComplete="name"
-                  className={`w-full pl-9 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white ${
+                  className={`w-full pl-9 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] bg-white/70 dark:bg-slate-950/60 dark:text-white ${
                     errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
                   }`}
                   placeholder={t('signup.fullNamePlaceholder')}
@@ -171,7 +171,7 @@ export const Signup = () => {
                   type="email"
                   {...field('email')}
                   autoComplete="email"
-                  className={`w-full pl-9 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white ${
+                  className={`w-full pl-9 pr-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] bg-white/70 dark:bg-slate-950/60 dark:text-white ${
                     errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
                   }`}
                   placeholder={t('signup.emailPlaceholder')}
@@ -191,7 +191,7 @@ export const Signup = () => {
                   type={showPassword ? 'text' : 'password'}
                   {...field('password')}
                   autoComplete="new-password"
-                  className={`w-full pl-9 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] dark:bg-[#0d1117] dark:text-white ${
+                  className={`w-full pl-9 pr-10 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2da44e] bg-white/70 dark:bg-slate-950/60 dark:text-white ${
                     errors.password ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
                   }`}
                   placeholder={t('signup.passwordPlaceholder')}
